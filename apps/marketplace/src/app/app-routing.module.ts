@@ -3,13 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'landing',
-    loadChildren: () => import('./landing/landing.component').then(m => m.LandingComponent)
-  },
-  {
     path: '',
     redirectTo: 'landing',
     pathMatch: 'full'
+  },
+  {
+    path: 'landing',
+    loadChildren: () => import('./landing/landing.module').then(m => m.LandingModule) 
   }
 ];
 
