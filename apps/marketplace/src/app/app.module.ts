@@ -12,9 +12,10 @@ const FIREBASE_EMUTLATORS = environment.useEmulators ? [
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
+import { LandingComponent } from './landing/landing.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, LandingComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
