@@ -1,30 +1,20 @@
 {
   "implicitDependencies": {
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
+    "package.json": { "dependencies": "*", "devDependencies": "*" },
     ".eslintrc.json": "*"
   },
-  "affected": {
-    "defaultBase": "master"
-  },
+  "affected": { "defaultBase": "master" },
   "npmScope": "nft",
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
-      "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
-      }
+      "options": { "cacheableOperations": ["build", "lint", "test", "e2e"] }
     }
   },
   "projects": {
-    "marketplace": {
-      "tags": []
-    },
-    "marketplace-e2e": {
-      "tags": [],
-      "implicitDependencies": ["marketplace"]
-    }
+    "marketplace": { "tags": [] },
+    "marketplace-e2e": { "tags": [], "implicitDependencies": ["marketplace"] },
+    "player": { "tags": [] },
+    "player-e2e": { "tags": [], "implicitDependencies": ["player"] }
   }
 }

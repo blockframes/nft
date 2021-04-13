@@ -20,7 +20,8 @@
       "style": "scss",
       "linter": "eslint",
       "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress"
+      "e2eTestRunner": "cypress",
+      "strict": true
     },
     "@nrwl/angular:library": {
       "style": "scss",
@@ -51,7 +52,9 @@
               "apps/marketplace/src/favicon.ico",
               "apps/marketplace/src/assets"
             ],
-            "styles": ["apps/marketplace/src/styles.scss"],
+            "styles": [
+              "apps/marketplace/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -112,11 +115,17 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/marketplace"],
+          "outputs": [
+            "coverage/apps/marketplace"
+          ],
           "options": {
             "jestConfig": "apps/marketplace/jest.config.js",
             "passWithNoTests": true
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     },
@@ -141,7 +150,129 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/marketplace-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/marketplace-e2e/**/*.{js,ts}"
+            ]
+          }
+        }
+      }
+    },
+    "player": {
+      "projectType": "application",
+      "root": "apps/player",
+      "sourceRoot": "apps/player/src",
+      "prefix": "nft",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/player",
+            "index": "apps/player/src/index.html",
+            "main": "apps/player/src/main.ts",
+            "polyfills": "apps/player/src/polyfills.ts",
+            "tsConfig": "apps/player/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/player/src/favicon.ico",
+              "apps/player/src/assets"
+            ],
+            "styles": [
+              "apps/player/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/player/src/environments/environment.ts",
+                  "with": "apps/player/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "player:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "player:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "player:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/player/src/**/*.ts",
+              "apps/player/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/player"
+          ],
+          "options": {
+            "jestConfig": "apps/player/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "player-e2e": {
+      "root": "apps/player-e2e",
+      "sourceRoot": "apps/player-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/player-e2e/cypress.json",
+            "tsConfig": "apps/player-e2e/tsconfig.e2e.json",
+            "devServerTarget": "player:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "player:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/player-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }

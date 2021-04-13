@@ -18,7 +18,7 @@ import { environment } from '../environments/environment';
     BrowserModule,
     BrowserAnimationsModule,
     AngularFireModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
   ],
   providers: [...FIREBASE_EMUTLATORS],
   bootstrap: [AppComponent],

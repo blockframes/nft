@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "c8-nft": {
+      "hosting": {
+        "marketplace": [
+          "c8-nft"
+        ]
+      }
+    }
+  }
+}
