@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+﻿import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire';
@@ -11,6 +11,7 @@ const FIREBASE_EMUTLATORS = environment.useEmulators ? [
 
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,7 +19,8 @@ import { environment } from '../environments/environment';
     BrowserModule,
     BrowserAnimationsModule,
     AngularFireModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    AppRoutingModule
   ],
   providers: [...FIREBASE_EMUTLATORS],
   bootstrap: [AppComponent],
