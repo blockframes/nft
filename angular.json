@@ -1,0 +1,150 @@
+{
+  "version": 1,
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "defaultProject": "marketplace",
+  "schematics": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "projects": {
+    "marketplace": {
+      "projectType": "application",
+      "root": "apps/marketplace",
+      "sourceRoot": "apps/marketplace/src",
+      "prefix": "nft",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/marketplace",
+            "index": "apps/marketplace/src/index.html",
+            "main": "apps/marketplace/src/main.ts",
+            "polyfills": "apps/marketplace/src/polyfills.ts",
+            "tsConfig": "apps/marketplace/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/marketplace/src/favicon.ico",
+              "apps/marketplace/src/assets"
+            ],
+            "styles": ["apps/marketplace/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/marketplace/src/environments/environment.ts",
+                  "with": "apps/marketplace/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "marketplace:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "marketplace:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "marketplace:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/marketplace/src/**/*.ts",
+              "apps/marketplace/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/marketplace"],
+          "options": {
+            "jestConfig": "apps/marketplace/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "marketplace-e2e": {
+      "root": "apps/marketplace-e2e",
+      "sourceRoot": "apps/marketplace-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/marketplace-e2e/cypress.json",
+            "tsConfig": "apps/marketplace-e2e/tsconfig.e2e.json",
+            "devServerTarget": "marketplace:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "marketplace:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/marketplace-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  }
+}
