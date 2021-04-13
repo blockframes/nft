@@ -16,6 +16,7 @@
     "marketplace-e2e": { "tags": [], "implicitDependencies": ["marketplace"] },
     "player": { "tags": [] },
     "player-e2e": { "tags": [], "implicitDependencies": ["player"] },
-    "functions": { "tags": [] }
+    "functions": { "tags": [] },
+    "metamask": { "tags": [] }
   }
 }
