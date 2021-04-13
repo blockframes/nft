@@ -52,9 +52,7 @@
               "apps/marketplace/src/favicon.ico",
               "apps/marketplace/src/assets"
             ],
-            "styles": [
-              "apps/marketplace/src/styles.scss"
-            ],
+            "styles": ["apps/marketplace/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -115,9 +113,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/marketplace"
-          ],
+          "outputs": ["coverage/apps/marketplace"],
           "options": {
             "jestConfig": "apps/marketplace/jest.config.js",
             "passWithNoTests": true
@@ -150,9 +146,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/marketplace-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/marketplace-e2e/**/*.{js,ts}"]
           }
         }
       }
@@ -172,13 +166,8 @@
             "polyfills": "apps/player/src/polyfills.ts",
             "tsConfig": "apps/player/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/player/src/favicon.ico",
-              "apps/player/src/assets"
-            ],
-            "styles": [
-              "apps/player/src/styles.scss"
-            ],
+            "assets": ["apps/player/src/favicon.ico", "apps/player/src/assets"],
+            "styles": ["apps/player/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -239,9 +228,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/player"
-          ],
+          "outputs": ["coverage/apps/player"],
           "options": {
             "jestConfig": "apps/player/jest.config.js",
             "passWithNoTests": true
@@ -270,9 +257,60 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/player-e2e/**/*.{js,ts}"
+            "lintFilePatterns": ["apps/player-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "functions": {
+      "root": "apps/functions",
+      "sourceRoot": "apps/functions/src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/functions",
+            "main": "apps/functions/src/main.ts",
+            "tsConfig": "apps/functions/tsconfig.app.json",
+            "assets": [
+              "apps/functions/src/assets",
+              "apps/functions/src/package.json"
             ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/functions/src/environments/environment.ts",
+                  "with": "apps/functions/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "functions:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/functions/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/functions"],
+          "options": {
+            "jestConfig": "apps/functions/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }

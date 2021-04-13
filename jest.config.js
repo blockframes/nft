@@ -1,3 +1,7 @@
 module.exports = {
-  projects: ['<rootDir>/apps/marketplace', '<rootDir>/apps/player'],
+  projects: [
+    '<rootDir>/apps/marketplace',
+    '<rootDir>/apps/player',
+    '<rootDir>/apps/functions',
+  ],
 };
