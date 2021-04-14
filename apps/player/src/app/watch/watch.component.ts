@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MetamaskService } from '@nft/metamask';
 import { AngularFireFunctions } from '@angular/fire/functions';
@@ -9,9 +9,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './watch.component.html',
   styleUrls: ['./watch.component.scss']
 })
-export class WatchComponent implements OnInit {
+export class WatchComponent {
 
-  private tokenId?: string;
+  getPlayerId = this.functions.httpsCallable<{ tokenId: string, message: string, signature: string }, string>('getPlayerId');
+
+  public playerUrl?: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -20,21 +22,17 @@ export class WatchComponent implements OnInit {
     private snackBar: MatSnackBar,
   ) { }
 
-  ngOnInit(): void {
-    this.tokenId = this.route.snapshot.paramMap.get('tokenId') as string;
-  }
-
-  public async signMessage() {
+  async signMessage() {
     try {
+      const tokenId = this.route.snapshot.paramMap.get('getPlayerId') as string;
       const message = 'I confirm that I own this token';
       const signature = await this.metamaskService.signMessage(message);
-
-      const f = this.functions.httpsCallable('getPlayerId');
-      await f({ signature, message, tokenId: this.tokenId }).toPromise();
+      this.playerUrl = await this.getPlayerId({ tokenId, message, signature }).toPromise();
       this.snackBar.open('Message signed !', '', { duration: 2000 });
+      console.log(this.playerUrl)
     } catch (error) {
       this.snackBar.open('Could not sign message', '', { duration: 2000 });
     }
-
   }
+
 }
