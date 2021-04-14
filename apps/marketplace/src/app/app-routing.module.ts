@@ -12,10 +12,6 @@ const routes: Routes = [
     loadChildren: () => import('./landing/landing.module').then(m => m.LandingModule)
   },
   {
-    path: 'signin',
-    loadChildren: () => import('@nft/metamask').then(m => m.SigninModule)
-  },
-  {
     path: 'my-tokens',
     loadChildren: () => import('./my-tokens/my-tokens.module').then(m => m.MyTokensModule)
   },
