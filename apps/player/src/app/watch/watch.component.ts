@@ -25,7 +25,7 @@ export class WatchComponent {
 
   async signMessage() {
     try {
-      const tokenId = this.route.snapshot.paramMap.get('getPlayerId') as string;
+      const tokenId = parseInt(this.route.snapshot.paramMap.get('tokenId') as string, 10);
       const message = 'I confirm that I own this token';
       const signature = await this.metamaskService.signMessage(message);
       this.playerUrl = await this.getPlayerId({ tokenId, message, signature }).toPromise();
