@@ -14,6 +14,7 @@ import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { MyTokensComponent } from './my-tokens/my-tokens.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
+import { UiModule } from '@nft/ui';
 
 
 const routes: Routes = [
@@ -26,6 +27,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [AppComponent, MyTokensComponent, ContactUsComponent],
   imports: [
+    UiModule,
     BrowserModule,
     BrowserAnimationsModule,
     AngularFireModule,
