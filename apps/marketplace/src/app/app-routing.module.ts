@@ -9,11 +9,19 @@ const routes: Routes = [
   },
   {
     path: 'landing',
-    loadChildren: () => import('./landing/landing.module').then(m => m.LandingModule) 
+    loadChildren: () => import('./landing/landing.module').then(m => m.LandingModule)
+  },
+  {
+    path: 'my-tokens',
+    loadChildren: () => import('./my-tokens/my-tokens.module').then(m => m.MyTokensModule)
+  },
+  {
+    path: 'contact',
+    loadChildren: () => import('./contact-us/contact-us.module').then(m => m.ContactUsModule)
   },
   {
     path: 'marketplace',
-    loadChildren: () => import('./marketplace/marketplace.module').then(m => m.MarketplaceModule) 
+    loadChildren: () => import('./marketplace/marketplace.module').then(m => m.MarketplaceModule)
   }
 ];
 
