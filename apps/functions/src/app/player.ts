@@ -12,9 +12,9 @@ export const checkSignature = async (data: SignedMessage): Promise<string> => {
   const provider = ethers.getDefaultProvider(env.eth.network);
   const contract = new ethers.Contract(env.eth.erc1155, abi, provider);
 
-  const balance: ethers.BigNumberish = await contract.balanceOf(ethAddress, tokenId);
+  const balance = await contract.balanceOf(ethAddress, tokenId);
 
-  if (balance > 0) {
+  if (balance.toNumber() > 0) {
     const titleId = utils.formatEther(balance);
     const options = {
       method: 'GET',
