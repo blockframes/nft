@@ -9,14 +9,10 @@ export class OpenSeaService implements OnInit {
 
   async ngOnInit() {
     if (this.metamask.signer) {
-      this.seaport = new OpenSeaPort(this.metamask.signer, {
-        networkName: env.production ? Network.Main : Network.Rinkeby
-      })
-    } else {
       await this.metamask.getAccount()
-      this.seaport = new OpenSeaPort(this.metamask.signer, {
-        networkName: env.production ? Network.Main : Network.Rinkeby
-      })
     }
+    this.seaport = new OpenSeaPort(this.metamask.signer, {
+      networkName: env.production ? Network.Main : Network.Rinkeby
+    })
   }
 }
