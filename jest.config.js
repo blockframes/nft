@@ -4,5 +4,6 @@ module.exports = {
     '<rootDir>/apps/player',
     '<rootDir>/apps/functions',
     '<rootDir>/libs/metamask',
+    '<rootDir>/libs/ui',
   ],
 };
