@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { MetamaskService } from '@nft/metamask';
 
 @Component({
-  selector: 'nft-sign-in',
-  templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.scss']
+  selector: 'nft-signin',
+  templateUrl: './signin.component.html',
+  styleUrls: ['./signin.component.scss']
 })
-export class SignInComponent {
+export class SigninComponent {
 
   constructor(private metamaskService: MetamaskService) { }
 

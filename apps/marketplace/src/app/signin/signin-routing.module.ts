@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NoEthereumWalletGuard } from '@nft/metamask';
-import { SignInComponent } from './sign-in.component';
+import { SigninComponent } from './signin.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: SignInComponent,
+    component: SigninComponent,
     canActivate: [NoEthereumWalletGuard],
   }
 ];
@@ -15,4 +15,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class SignInRoutingModule { }
+export class SigninRoutingModule { }
