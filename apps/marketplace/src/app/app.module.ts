@@ -11,14 +11,12 @@ const FIREBASE_EMUTLATORS = environment.useEmulators ? [
 
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
-import { MyTokensComponent } from './my-tokens/my-tokens.component';
-import { ContactUsComponent } from './contact-us/contact-us.component';
 import { UiModule } from '@nft/ui';
 import { AppRoutingModule } from './app-routing.module';
 
 
 @NgModule({
-  declarations: [AppComponent, MyTokensComponent, ContactUsComponent],
+  declarations: [AppComponent],
   imports: [
     UiModule,
     BrowserModule,
