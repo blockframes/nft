@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Contract, EventFilter, Transaction } from 'ethers';
-import { environment } from '../environments/environment';
-import * as abi from '../assets/abis/erc1155.json';
+import { MetamaskService } from './metamask.service';
+import env from '@nft/env';
+import * as abi from './erc1155.json';
 
 interface ERC1155_Event {
   TransferSingle: (operator: string, from: string, to: string, id: number, value: number) => void;
@@ -14,9 +15,9 @@ interface ERC1155_Event {
 @Injectable({ providedIn: 'root' })
 export class ERC1155 extends Contract {
 
-  constructor(metamask: MetaMaskService) {
+  constructor(metamask: MetamaskService) {
     if (!metamask.signer) throw new Error('ERC1155 requires a signer');
-    super(environment.erc1155, abi, metamask.signer);
+    super(env.eth.erc1155, abi, metamask.signer);
   }
 
   on<K extends keyof ERC1155_Event>(event: K, listener: ERC1155_Event[K]) {

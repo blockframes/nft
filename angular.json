@@ -59,8 +59,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "apps/marketplace/src/environments/environment.ts",
-                  "with": "apps/marketplace/src/environments/environment.prod.ts"
+                  "replace": "env/env.ts",
+                  "with": "env/env.prod.ts"
                 }
               ],
               "optimization": true,
@@ -174,8 +174,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "apps/player/src/environments/environment.ts",
-                  "with": "apps/player/src/environments/environment.prod.ts"
+                  "replace": "env/env.ts",
+                  "with": "env/env.prod.ts"
                 }
               ],
               "optimization": true,
@@ -286,8 +286,8 @@
               "inspect": false,
               "fileReplacements": [
                 {
-                  "replace": "apps/functions/src/environments/environment.ts",
-                  "with": "apps/functions/src/environments/environment.prod.ts"
+                  "replace": "env/env.ts",
+                  "with": "env/env.prod.ts"
                 }
               ]
             }
