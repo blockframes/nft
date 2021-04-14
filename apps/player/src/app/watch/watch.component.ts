@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MetamaskService } from '@nft/metamask';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { createSignedMessage } from '@nft/model';
+import { SignedMessage } from '@nft/model';
 
 @Component({
   selector: 'nft-watch',
@@ -12,7 +12,7 @@ import { createSignedMessage } from '@nft/model';
 })
 export class WatchComponent {
 
-  getPlayerId = this.functions.httpsCallable<{ tokenId: string, message: string, signature: string }, string>('getPlayerId');
+  getPlayerId = this.functions.httpsCallable<SignedMessage, string>('getPlayerId');
 
   public playerUrl?: string;
 
@@ -28,9 +28,9 @@ export class WatchComponent {
       const tokenId = this.route.snapshot.paramMap.get('getPlayerId') as string;
       const message = 'I confirm that I own this token';
       const signature = await this.metamaskService.signMessage(message);
-      this.playerUrl = await this.getPlayerId(createSignedMessage({ tokenId, message, signature })).toPromise();
+      this.playerUrl = await this.getPlayerId({ tokenId, message, signature }).toPromise();
       this.snackBar.open('Message signed !', '', { duration: 2000 });
-      console.log(this.playerUrl)
+      console.log(this.playerUrl);
     } catch (error) {
       this.snackBar.open('Could not sign message', '', { duration: 2000 });
     }
