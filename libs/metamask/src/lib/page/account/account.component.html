@@ -4,7 +4,7 @@
 <section>
   <mat-card *ngFor="let token of tokens$ | async">
     <a [routerLink]="['../watch', token.id]" matRipple>
-      <img mat-card-image [src]="token.meta.image"/>
+      <img mat-card-image [src]="token.meta.image" width="300" height="400"/>
     </a>
     <mat-card-header>
       <mat-card-title>{{ token.meta.name }}</mat-card-title>
