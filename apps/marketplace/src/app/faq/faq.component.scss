@@ -1,0 +1,14 @@
+:host {
+  display: block;
+  margin: auto;
+  max-width: 900px;
+  padding: 24px;
+}
+
+mat-card {
+  width: fit-content;
+  cursor: pointer;
+  img {
+    height: 150px;
+  }
+}
