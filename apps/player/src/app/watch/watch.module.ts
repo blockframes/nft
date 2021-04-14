@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { WatchRoutingModule } from './watch-routing.module';
+import { RouterModule } from '@angular/router';
+
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 import { WatchComponent } from './watch.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -11,8 +14,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
   ],
   imports: [
     CommonModule,
-    WatchRoutingModule,
     MatSnackBarModule,
+    MatButtonModule,
+    MatIconModule,
+    RouterModule.forChild([{ path: '', component: WatchComponent }]),
   ]
 })
 export class WatchModule { }

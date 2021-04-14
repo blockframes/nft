@@ -5,7 +5,7 @@ import { EthereumWalletGuard, NoEthereumWalletGuard } from '@nft/metamask';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'watch/123456', // @TODO TEMP until we have a page to display titles
+    redirectTo: 'account',
     pathMatch: 'full'
   },
   {
