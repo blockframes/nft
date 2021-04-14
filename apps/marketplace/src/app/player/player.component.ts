@@ -25,11 +25,16 @@ export class PlayerComponent implements OnInit {
   }
 
   public async signMessage() {
-    const message = 'I confirm that I own this token';
-    const signature = await this.metamaskService.signMessage(message);
+    try {
+      const message = 'I confirm that I own this token';
+      const signature = await this.metamaskService.signMessage(message);
 
-    const f = this.functions.httpsCallable('verifyMessage');
-    await f({ signature, message, tokenId: this.tokenId }).toPromise();
-    this.snackBar.open('Message signed !', '', { duration: 2000 });
+      const f = this.functions.httpsCallable('verifyMessage');
+      await f({ signature, message, tokenId: this.tokenId }).toPromise();
+      this.snackBar.open('Message signed !', '', { duration: 2000 });
+    } catch (error) {
+      this.snackBar.open('Could not sign message', '', { duration: 2000 });
+    }
+
   }
 }
