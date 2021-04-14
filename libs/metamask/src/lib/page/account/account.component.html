@@ -3,10 +3,12 @@
 </mat-toolbar>
 <section>
   <mat-card *ngFor="let token of tokens$ | async">
-    <img mat-card-image [src]="token.meta.image"/>
+    <a [routerLink]="['../watch', token.id]" matRipple>
+      <img mat-card-image [src]="token.meta.image"/>
+    </a>
     <mat-card-header>
       <mat-card-title>{{ token.meta.name }}</mat-card-title>
-      <mat-card-subtitle>{{ token.balance }}</mat-card-subtitle>
+      <mat-card-subtitle>Balance: {{ token.balance }}</mat-card-subtitle>
     </mat-card-header>
   </mat-card>
 </section>
