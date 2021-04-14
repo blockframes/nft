@@ -21,7 +21,11 @@ const routes: Routes = [
   },
   {
     path: 'marketplace',
-    loadChildren: () => import('./marketplace/marketplace.module').then(m => m.MarketplaceModule)
+    loadChildren: () => import('./marketplace/marketplace.module').then(m => m.MarketplaceModule) 
+  },
+  {
+    path: 'faq',
+    loadChildren: () => import('./faq/faq.module').then(m => m.FAQModule) 
   }
 ];
 
