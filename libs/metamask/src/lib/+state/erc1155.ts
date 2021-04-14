@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Contract, Event, BigNumber } from 'ethers';
 import { MetamaskService } from './metamask.service';
 import env from '@nft/env';
-import * as abi from '@nft/model/erc1155.json';
+import abi from '@nft/model/erc1155.json';
 
 interface ERC1155_Event {
   TransferSingle: (operator: string, from: string, to: string, id: number, value: number) => void;
