@@ -62,9 +62,33 @@ export class MetamaskService {
     }
   }
 
+  public async changeAccount() {
+    await this.ethereum.request({
+      method: "eth_requestAccounts",
+      params: [
+        {
+          eth_accounts: {}
+        }
+      ]
+    });
+
+    if (this.hasAccount()) {
+    // Runs only they are brand new, or have hit the disconnect button
+      await this.ethereum.request({
+        method: "wallet_requestPermissions",
+        params: [
+          {
+            eth_accounts: {}
+          }
+        ]
+      });
+    }
+  }
+
+
   /**
-   * 
-   * @param message 
+   *
+   * @param message
    * @returns string signature of a signed message
    */
   public signMessage(message: string): Promise<string> {
