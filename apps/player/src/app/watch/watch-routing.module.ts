@@ -8,11 +8,6 @@ const routes: Routes = [
     path: '',
     component: WatchComponent,
     canActivate: [EthereumWalletGuard],
-  },
-  {
-    path: ':tokenId',
-    component: WatchComponent,
-    canActivate: [EthereumWalletGuard],
   }
 ];
 

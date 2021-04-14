@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'watch',
+    redirectTo: 'watch/abcdef123', // @TODO TEMP until we have a page to display titles
     pathMatch: 'full'
   },
   {
@@ -12,7 +12,7 @@ const routes: Routes = [
     loadChildren: () => import('@nft/metamask').then(m => m.SigninModule)
   },
   {
-    path: 'watch',
+    path: 'watch/:tokenId',
     loadChildren: () => import('./watch/watch.module').then(m => m.WatchModule)
   }
 ];
