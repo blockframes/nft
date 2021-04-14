@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire';
@@ -11,14 +12,25 @@ const FIREBASE_EMUTLATORS = environment.useEmulators ? [
 
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
+import { MyTokensComponent } from './my-tokens/my-tokens.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
+
+
+const routes: Routes = [
+  { path: 'my-tokens/:id', component: MyTokensComponent },
+  { path: 'contact', component: ContactUsComponent },
+  { path: 'home', component: AppComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+];
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, MyTokensComponent, ContactUsComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AngularFireModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [...FIREBASE_EMUTLATORS],
   bootstrap: [AppComponent],
