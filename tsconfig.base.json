@@ -14,10 +14,12 @@
     "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
+    "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
       "@nft/metamask": ["libs/metamask/src/index.ts"],
-      "@nft/ui": ["libs/ui/src/index.ts"]
+      "@nft/ui": ["libs/ui/src/index.ts"],
+      "@nft/env": ["env/env.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

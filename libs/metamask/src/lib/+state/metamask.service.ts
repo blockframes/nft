@@ -4,8 +4,8 @@ import { providers } from 'ethers'
 @Injectable({ providedIn: 'root' })
 export class MetamaskService {
 
-  private provider?: providers.Web3Provider;
   private account: string = '';
+  signer?: providers.JsonRpcSigner;
 
   private get ethereum() {
     if (typeof window !== 'undefined' && 'ethereum' in window) {
@@ -20,11 +20,12 @@ export class MetamaskService {
     if (this.account) return this.account;
 
     try {
-      this.provider = new providers.Web3Provider(this.ethereum);
+      const provider = new providers.Web3Provider(this.ethereum);
       const accounts = await this.ethereum.request({ method: 'eth_accounts' });
 
       if (!!accounts && accounts.length) {
         this.account = accounts[0];
+        this.signer = provider.getSigner();
       }
     } catch (err) {
       console.log(err.message);
@@ -51,6 +52,7 @@ export class MetamaskService {
       const accounts: any[] = await this.ethereum.request({ method: 'eth_requestAccounts' });
       if (!!accounts && accounts.length) {
         this.account = accounts[0];
+        this.signer = new providers.Web3Provider(this.ethereum).getSigner();
         return this.account;
       } else {
         throw new Error('no-account');
@@ -66,9 +68,8 @@ export class MetamaskService {
    * @returns string signature of a signed message
    */
   public signMessage(message: string): Promise<string> {
-    const signer = this.provider?.getSigner();
-    if (!!signer) {
-      return signer.signMessage(message);
+    if (!!this.signer) {
+      return this.signer.signMessage(message);
     } else {
       throw new Error('signer-not-defined');
     }
