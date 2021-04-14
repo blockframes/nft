@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Contract, EventFilter, Transaction } from 'ethers';
+import { Contract, Event, BigNumber } from 'ethers';
 import { MetamaskService } from './metamask.service';
 import env from '@nft/env';
-import * as abi from './erc1155.json';
+import * as abi from '@nft/model/erc1155.json';
 
 interface ERC1155_Event {
   TransferSingle: (operator: string, from: string, to: string, id: number, value: number) => void;
@@ -11,59 +11,53 @@ interface ERC1155_Event {
   URI: (value: string, id: number) => void;
 }
 
+export interface ERC1155_Meta {
+  name: string;
+  description: string;
+  image: string;
+  image_data?: string;
+  background_color?: string;
+  animation_url?: string;
+  youtube_url?: string;
+  attributes: { display_type?: string, trait_type: string, value: string }[];
+}
+
+export interface ERC1155_Token {
+  id: string;
+  account: string;
+  balance: number;
+  meta: ERC1155_Meta;
+}
 
 @Injectable({ providedIn: 'root' })
 export class ERC1155 extends Contract {
-
   constructor(metamask: MetamaskService) {
     if (!metamask.signer) throw new Error('ERC1155 requires a signer');
     super(env.eth.erc1155, abi, metamask.signer);
   }
 
-  on<K extends keyof ERC1155_Event>(event: K, listener: ERC1155_Event[K]) {
-    return super.on(event, listener)
-  }
-  off<K extends keyof ERC1155_Event>(event: K, listener: ERC1155_Event[K]) {
-    return super.off(event, listener)
-  }
-  once<K extends keyof ERC1155_Event>(event: K, listener: ERC1155_Event[K]) {
-    return super.once(event, listener)
-  }
-  removeAllListeners(event?: Extract<keyof ERC1155_Event, string> | EventFilter) {
-    return super.removeAllListeners(event);
-  }
-  
-  /**
-    Transfers `value` amount of an `id` from the `from` address to the `to` address specified (with safety call).
-    @param from    Source address
-    @param to      Target address
-    @param id      ID of the token type
-    @param value   Transfer amount
-    @param data    Additional data with no specified format, MUST be sent unaltered in call to `onERC1155Received` on `to`
-  */
-  safeTransferFrom(from: string, to: string, id: number, value: number, data: string): Promise<Transaction> {
-    return super.safeBatchTransferFrom(from, to, id, value, data);
+  async getTokens(account: string) {
+    const ids = await this.getTokenIds(account);
+    const promises = ids.map(async (id: number) => {
+      const [ balance, meta ] = await Promise.all([
+        this.balanceOf(account, id),
+        this.getMeta(id)
+      ]);
+      return { id, account, balance, meta };
+    });
+    return Promise.all(promises);
   }
 
-  /**
-    Transfers `values` amount(s) of `ids` from the `from` address to the `to` address specified (with safety call).
-    @param from    Source address
-    @param to      Target address
-    @param ids     IDs of each token type (order and length must match values array)
-    @param values  Transfer amounts per token type (order and length must match ids array)
-    @param data    Additional data with no specified format, MUST be sent unaltered in call to the `ERC1155TokenReceiver` hook(s) on `to`
-  */
-  safeBatchTransferFrom(from: string, to: string, ids: number[], values: number[], data: string): Promise<Transaction> {
-    return super.safeBatchTransferFrom(from, to, ids, values, data);
+  getMeta(id: number): Promise<ERC1155_Meta> {
+    return this.uri(id)
+      .then(uri => fetch(uri))
+      .then(res => res.json());
   }
 
-  /**
-    Enable or disable approval for a third party ("operator") to manage all of the caller's tokens.
-    @param operator  Address to add to the set of authorized operators
-    @param approved  True if the operator is approved, false to revoke approval
-  */
-  setApprovalForAll(operator: string, approved: boolean): Promise<Transaction> {
-    return super.setApprovalForAll(operator, approved);
+  async getTokenIds(account: string) {
+    const filter = this.filters.TransferSingle(null, null, account);
+    const events = await this.queryFilter(filter);
+    return events.map((event: Event): number => (event.args![3] as BigNumber).toNumber());
   }
 
   /**
@@ -72,8 +66,9 @@ export class ERC1155 extends Contract {
     @param id     ID of the token
     @return       The owner's balance of the token type requested
   */
-  balanceOf(owner: string, id: number): Promise<number> {
-    return super.functions.balanceOf(owner, id);
+  balanceOf(owner: string, id: number) {
+    return super.functions.balanceOf(owner, id)
+      .then((balance: BigNumber) => balance.toNumber());
   }
 
   /**
@@ -82,8 +77,9 @@ export class ERC1155 extends Contract {
     @param ids    ID of the tokens
     @return       The owner's balance of the token types requested (i.e. balance for each (owner, id) pair)
   */
-  balanceOfBatch(owners: string[], ids: number[]): Promise<number[]> {
-    return super.functions.balanceOfBatch(owners, ids);
+  balanceOfBatch(owners: string[], ids: number[]) {
+    return super.functions.balanceOfBatch(owners, ids)
+      .then((balances: BigNumber[]) => balances.map(balance => balance.toNumber()));
   }
 
   /**
@@ -94,5 +90,13 @@ export class ERC1155 extends Contract {
   */
   isApprovedForAll(owner: string, operator: string): Promise<boolean> {
     return super.functions.balanceOfBatch(owner, operator);
+  }
+
+  /**
+   * Return the uri where metadata are leaving
+   * @param id The id of the token
+   */
+  uri(id: number): Promise<string> {
+    return super.function.uri(id);
   }
 }
