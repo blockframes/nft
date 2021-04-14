@@ -15,10 +15,9 @@ export const checkSignature = async (data: SignedMessage): Promise<string> => {
   const balance = await contract.balanceOf(ethAddress, tokenId);
 
   if (balance.toNumber() > 0) {
-    const titleId = utils.formatEther(balance);
     const options = {
       method: 'GET',
-      url: `https://c8-nft-default-rtdb.europe-west1.firebasedatabase.app/titles/${titleId}.json`,
+      url: `https://c8-nft-default-rtdb.europe-west1.firebasedatabase.app/titles/${tokenId}.json`,
       json: true,
       headers: { 'User-Agent': 'client' },
     };
