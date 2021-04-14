@@ -1,4 +1,18 @@
 :host {
+  display: block;
+  font-family: sans-serif;
+  min-width: 300px;
+}
+
+.gutter-left {
+  margin-left: 9px;
+}
+
+.col-span-2 {
+  grid-column: span 2;
+}
+
+.flex {
   display: flex;
   flex-direction: column;
   height: 100vh;
