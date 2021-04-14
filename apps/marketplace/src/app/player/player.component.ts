@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MetamaskService } from '@nft/metamask';
 import { AngularFireFunctions } from '@angular/fire/functions';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'nft-player',
@@ -15,7 +16,8 @@ export class PlayerComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private metamaskService: MetamaskService,
-    private functions: AngularFireFunctions // @TODO move to appropriate service
+    private functions: AngularFireFunctions, // @TODO move to appropriate service
+    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
@@ -28,5 +30,6 @@ export class PlayerComponent implements OnInit {
 
     const f = this.functions.httpsCallable('verifyMessage');
     await f({ signature, message, tokenId: this.tokenId }).toPromise();
+    this.snackBar.open('Message signed !', '', { duration: 2000 });
   }
 }

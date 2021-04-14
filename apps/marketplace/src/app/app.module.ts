@@ -4,7 +4,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule, USE_EMULATOR as USE_FIRESTORE_EMULATOR } from '@angular/fire/firestore';
 import { AngularFireFunctionsModule } from '@angular/fire/functions';
-import * as firebase from 'firebase';
 
 // Specific config for emulators
 const FIREBASE_EMUTLATORS = environment.useEmulators ? [
@@ -22,7 +21,7 @@ import { AppRoutingModule } from './app-routing.module';
     UiModule,
     BrowserModule,
     BrowserAnimationsModule,
-    AngularFireModule.initializeApp(firebase),
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireFunctionsModule,
     AppRoutingModule
