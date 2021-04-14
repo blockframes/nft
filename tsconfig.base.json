@@ -19,6 +19,7 @@
     "paths": {
       "@nft/metamask": ["libs/metamask/src/index.ts"],
       "@nft/ui": ["libs/ui/src/index.ts"],
+      "@nft/model": ["libs/model/src/index.ts"],
       "@nft/env": ["env/env.ts"]
     }
   },

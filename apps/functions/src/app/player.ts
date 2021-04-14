@@ -1,6 +1,7 @@
 import { utils } from 'ethers';
+import { SignedMessage } from '@nft/model';
 
-export const checkSignature = async (data: { message: string, signature: string, tokenId: string }): Promise<string> => {
+export const checkSignature = async (data: SignedMessage): Promise<string> => {
   const { message, signature, tokenId } = data;
 
   const ethAddress = utils.verifyMessage(message, signature);
