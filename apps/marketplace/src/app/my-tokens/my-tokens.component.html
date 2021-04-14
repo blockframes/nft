@@ -1,1 +1,17 @@
-<p>my-tokens works!</p>
+<h1>Your Tokens</h1>
+<ng-container *ngIf="loggedIn else login">
+  <iframe 
+    src="https://testnets.opensea.io/account?embed=true"
+    height="100%"
+    width="100%"
+    frameborder="0"
+    allowfullscreen>
+  </iframe>
+</ng-container>
+
+<ng-template #login>
+  <section fxLayout="column">
+    In order to show your items you need to be connected to MetaMask
+    <button mat-button color="red" (click)="signIn()">Connect to MetaMask</button>
+  </section>
+</ng-template>
