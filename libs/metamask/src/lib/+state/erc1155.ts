@@ -67,8 +67,8 @@ export class ERC1155 extends Contract {
     @return       The owner's balance of the token type requested
   */
   balanceOf(owner: string, id: number) {
-    return super.functions.balanceOf(owner, id)
-      .then((balance: BigNumber) => balance.toNumber());
+    return this.functions.balanceOf(owner, id)
+      .then(([balance]: [BigNumber]) => balance.toNumber());
   }
 
   /**
@@ -78,7 +78,7 @@ export class ERC1155 extends Contract {
     @return       The owner's balance of the token types requested (i.e. balance for each (owner, id) pair)
   */
   balanceOfBatch(owners: string[], ids: number[]) {
-    return super.functions.balanceOfBatch(owners, ids)
+    return this.functions.balanceOfBatch(owners, ids)
       .then((balances: BigNumber[]) => balances.map(balance => balance.toNumber()));
   }
 
@@ -89,7 +89,7 @@ export class ERC1155 extends Contract {
     @return          True if the operator is approved, false if not
   */
   isApprovedForAll(owner: string, operator: string): Promise<boolean> {
-    return super.functions.balanceOfBatch(owner, operator);
+    return this.functions.balanceOfBatch(owner, operator);
   }
 
   /**
@@ -97,6 +97,6 @@ export class ERC1155 extends Contract {
    * @param id The id of the token
    */
   uri(id: number): Promise<string> {
-    return super.function.uri(id);
+    return this.functions.uri(id);
   }
 }
