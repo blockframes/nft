@@ -4,7 +4,7 @@ import { providers, utils } from 'ethers'
 @Injectable({ providedIn: 'root' })
 export class MetamaskService {
 
-  private provider: providers.Web3Provider;
+  private provider?: providers.Web3Provider;
   private account: string = '';
   private signer?: providers.JsonRpcSigner;
 
@@ -17,19 +17,20 @@ export class MetamaskService {
     }
   }
 
-  constructor() {
-    this.provider = new providers.Web3Provider(this.ethereum);
-  }
-
   async getAccount() {
     if (this.account) return this.account;
-    const accounts = await this.ethereum.request({ method: 'eth_accounts' });
 
-    if (!!accounts && accounts.length) {
-      this.account = accounts[0];
-      this.signer = this.provider.getSigner();
+    try {
+      this.provider = new providers.Web3Provider(this.ethereum);
+      const accounts = await this.ethereum.request({ method: 'eth_accounts' });
+
+      if (!!accounts && accounts.length) {
+        this.account = accounts[0];
+        this.signer = this.provider.getSigner();
+      }
+    } catch (err) {
+      console.log(err.message);
     }
-
     return this.account;
   }
 
@@ -39,7 +40,7 @@ export class MetamaskService {
    */
   public async hasAccount(): Promise<boolean> {
     const account = await this.getAccount();
-    return !!account ? true : false;
+    return !!account;
   }
 
   /**
@@ -48,14 +49,16 @@ export class MetamaskService {
    */
   public async requestAccount(): Promise<string> {
     if (!!this.account) return this.account;
-
-    const accounts: any[] = await this.ethereum.request({ method: 'eth_requestAccounts' });
-
-    if (!!accounts && accounts.length) {
-      this.account = accounts[0];
-      return this.account;
-    } else {
-      throw new Error('no-account');
+    try {
+      const accounts: any[] = await this.ethereum.request({ method: 'eth_requestAccounts' });
+      if (!!accounts && accounts.length) {
+        this.account = accounts[0];
+        return this.account;
+      } else {
+        throw new Error('no-account');
+      }
+    } catch (err) {
+      throw new Error('no-provider');
     }
   }
 

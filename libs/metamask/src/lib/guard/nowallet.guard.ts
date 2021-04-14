@@ -12,11 +12,8 @@ export class NoEthereumWalletGuard implements CanActivate {
   ) { }
 
   async canActivate(): Promise<boolean | UrlTree> {
-    const hasAccount = await this.service.hasAccount();
-    if (!hasAccount) {
-      return true;
-    } else {
-      return this.router.parseUrl('/landing');
-    }
+    return this.service.hasAccount()
+      .then(hasAccount => !hasAccount || this.router.parseUrl('/landing'))
+      .catch(_ => this.router.parseUrl('/landing'));
   }
 }

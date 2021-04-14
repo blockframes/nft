@@ -12,11 +12,8 @@ export class EthereumWalletGuard implements CanActivate {
   ) { }
 
   async canActivate(): Promise<boolean | UrlTree> {
-    const hasAccount = await this.service.hasAccount();
-    if (hasAccount) {
-      return true;
-    } else {
-      return this.router.parseUrl('/signin');
-    }
+    return this.service.hasAccount()
+      .then(hasAccount => hasAccount || this.router.parseUrl('/signin'))
+      .catch(_ => this.router.parseUrl('/signin'));
   }
 }
