@@ -1,6 +1,7 @@
 footer {
   display: flex;
-  height: 30px;
+  min-height: 30px;
+  padding: 16px;
   justify-content: space-between;
   align-content: center;
   a {

@@ -5,8 +5,11 @@ import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 
+// MATERIALS
+import { MatButtonModule } from '@angular/material/button';
+
 @NgModule({
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, MatButtonModule],
   declarations: [
     HeaderComponent,
     FooterComponent
