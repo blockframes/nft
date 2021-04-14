@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { providers, utils } from 'ethers'
+import { providers } from 'ethers'
 
 @Injectable({ providedIn: 'root' })
 export class MetamaskService {
 
   private provider?: providers.Web3Provider;
   private account: string = '';
-  private signer?: providers.JsonRpcSigner;
 
   private get ethereum() {
     if (typeof window !== 'undefined' && 'ethereum' in window) {
@@ -26,7 +25,6 @@ export class MetamaskService {
 
       if (!!accounts && accounts.length) {
         this.account = accounts[0];
-        this.signer = this.provider.getSigner();
       }
     } catch (err) {
       console.log(err.message);
@@ -68,23 +66,11 @@ export class MetamaskService {
    * @returns string signature of a signed message
    */
   public signMessage(message: string): Promise<string> {
-    if (!!this.signer) {
-      return this.signer.signMessage(message);
+    const signer = this.provider?.getSigner();
+    if (!!signer) {
+      return signer.signMessage(message);
     } else {
       throw new Error('signer-not-defined');
     }
   }
-
-  /**
-   * @TODO Bruce move this to backend functions
-   * Check that a message was signed with current account
-   * @param message 
-   * @param signature 
-   * @returns 
-   */
-  public verifyMessage(message: string, signature: string): boolean {
-    const extractedAddress = utils.verifyMessage(message, signature);
-    return extractedAddress.toLowerCase() === this.account.toLowerCase();
-  }
-
 }

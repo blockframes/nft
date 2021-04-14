@@ -30,6 +30,10 @@ const routes: Routes = [
   {
     path: 'faq',
     loadChildren: () => import('./faq/faq.module').then(m => m.FAQModule)
+  },
+  {
+    path: 'player',
+    loadChildren: () => import('./player/player.module').then(m => m.PlayerModule)
   }
 ];
 
