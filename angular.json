@@ -50,7 +50,11 @@
             "aot": true,
             "assets": [
               "apps/marketplace/src/favicon.ico",
-              "apps/marketplace/src/assets"
+              {
+                "glob": "**/*",
+                "input": "./assets",
+                "output": "./assets"
+              }
             ],
             "styles": ["apps/marketplace/src/styles.scss"],
             "scripts": []
@@ -166,7 +170,12 @@
             "polyfills": "apps/player/src/polyfills.ts",
             "tsConfig": "apps/player/tsconfig.app.json",
             "aot": true,
-            "assets": ["apps/player/src/favicon.ico", "apps/player/src/assets"],
+            "assets": [
+              "apps/player/src/favicon.ico",               {
+              "glob": "**/*",
+              "input": "./assets",
+              "output": "./assets"
+            }],
             "styles": ["apps/player/src/styles.scss"],
             "scripts": []
           },
