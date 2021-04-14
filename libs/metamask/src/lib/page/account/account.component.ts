@@ -9,7 +9,8 @@ import { ERC1155 } from '../../+state/erc1155';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccountComponent {
-  tokens$ = this.metamask.getAccount().then(account => this.erc1155.getTokens(account));
+  account$ = this.metamask.getAccount();
+  tokens$ = this.account$.then(account => this.erc1155.getTokens(account));
   
   constructor(
     private metamask: MetamaskService,
