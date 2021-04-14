@@ -46,6 +46,7 @@
     "firebase": "^7.0 || ^8.0",
     "firebase-admin": "^9.4.1",
     "firebase-functions": "^3.13.2",
+    "opensea-js": "^1.1.11",
     "rxjs": "~6.6.3",
     "tslib": "^2.0.0",
     "zone.js": "^0.10.2"
