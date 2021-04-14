@@ -1,0 +1,9 @@
+<ng-container *ngFor="let token of tokens$ | async">
+  <mat-card>
+    <img mat-card-image [src]="token.meta.image"/>
+    <mat-card-header>
+      <mat-card-title>{{ token.meta.name }}</mat-card-title>
+      <mat-card-subtitle>{{ token.balance }}</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+</ng-container>
