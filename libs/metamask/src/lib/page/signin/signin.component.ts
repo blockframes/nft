@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { MetamaskService } from '@nft/metamask';
+import { MetamaskService } from '../../+state/metamask.service';
 
 @Component({
   selector: 'nft-signin',
@@ -16,7 +16,7 @@ export class SigninComponent {
 
   public async signIn() {
     await this.metamaskService.requestAccount();
-    this.router.navigate(['/landing']);
+    this.router.navigate(['/']);
   }
 
 }

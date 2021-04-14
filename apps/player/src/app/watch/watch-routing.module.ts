@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NoEthereumWalletGuard } from '@nft/metamask';
-import { SigninComponent } from './signin.component';
+import { EthereumWalletGuard } from '@nft/metamask';
+import { WatchComponent } from './watch.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: SigninComponent,
-    canActivate: [NoEthereumWalletGuard],
+    component: WatchComponent,
+    canActivate: [EthereumWalletGuard],
   }
 ];
 
@@ -15,4 +15,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class SigninRoutingModule { }
+export class WatchRoutingModule { }
