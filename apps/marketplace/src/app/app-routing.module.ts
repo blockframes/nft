@@ -12,6 +12,10 @@ const routes: Routes = [
     loadChildren: () => import('./landing/landing.module').then(m => m.LandingModule)
   },
   {
+    path: 'signin',
+    loadChildren: () => import('./signin/signin.module').then(m => m.SigninModule)
+  },
+  {
     path: 'my-tokens',
     loadChildren: () => import('./my-tokens/my-tokens.module').then(m => m.MyTokensModule)
   },
@@ -21,11 +25,11 @@ const routes: Routes = [
   },
   {
     path: 'marketplace',
-    loadChildren: () => import('./marketplace/marketplace.module').then(m => m.MarketplaceModule) 
+    loadChildren: () => import('./marketplace/marketplace.module').then(m => m.MarketplaceModule)
   },
   {
     path: 'faq',
-    loadChildren: () => import('./faq/faq.module').then(m => m.FAQModule) 
+    loadChildren: () => import('./faq/faq.module').then(m => m.FAQModule)
   }
 ];
 

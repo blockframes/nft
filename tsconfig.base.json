@@ -16,6 +16,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@nft/metamask": ["libs/metamask/src/index.ts"],
       "@nft/ui": ["libs/ui/src/index.ts"]
     }
   },
