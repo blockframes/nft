@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PlayerRoutingModule } from './player-routing.module';
+import { WatchRoutingModule } from './watch-routing.module';
 
-import { PlayerComponent } from './player.component';
+import { WatchComponent } from './watch.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
-    PlayerComponent
+    WatchComponent
   ],
   imports: [
     CommonModule,
-    PlayerRoutingModule,
+    WatchRoutingModule,
     MatSnackBarModule,
   ]
 })
-export class PlayerModule { }
+export class WatchModule { }

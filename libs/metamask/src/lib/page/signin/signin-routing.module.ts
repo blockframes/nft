@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NoEthereumWalletGuard } from '@nft/metamask';
+import { NoEthereumWalletGuard } from '../../guard/nowallet.guard';
 import { SigninComponent } from './signin.component';
 
 const routes: Routes = [

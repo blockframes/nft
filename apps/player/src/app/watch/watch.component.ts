@@ -5,11 +5,11 @@ import { AngularFireFunctions } from '@angular/fire/functions';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'nft-player',
-  templateUrl: './player.component.html',
-  styleUrls: ['./player.component.scss']
+  selector: 'nft-watch',
+  templateUrl: './watch.component.html',
+  styleUrls: ['./watch.component.scss']
 })
-export class PlayerComponent implements OnInit {
+export class WatchComponent implements OnInit {
 
   private tokenId?: string;
 
@@ -29,7 +29,7 @@ export class PlayerComponent implements OnInit {
       const message = 'I confirm that I own this token';
       const signature = await this.metamaskService.signMessage(message);
 
-      const f = this.functions.httpsCallable('verifyMessage');
+      const f = this.functions.httpsCallable('getPlayerId');
       await f({ signature, message, tokenId: this.tokenId }).toPromise();
       this.snackBar.open('Message signed !', '', { duration: 2000 });
     } catch (error) {
