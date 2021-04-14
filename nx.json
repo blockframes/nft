@@ -17,6 +17,7 @@
     "player": { "tags": [] },
     "player-e2e": { "tags": [], "implicitDependencies": ["player"] },
     "functions": { "tags": [] },
+    "metamask": { "tags": [] },
     "ui": { "tags": [] }
   }
 }

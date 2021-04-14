@@ -5,6 +5,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+
+// MATERIALS
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   imports: [
@@ -14,10 +18,12 @@ import { HeaderComponent } from './header/header.component';
     MatToolbarModule
   ],
   declarations: [
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
   ],
   exports: [
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
   ],
 })
 export class UiModule {}
