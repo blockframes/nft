@@ -1,6 +1,6 @@
-export const environment = {
-  production: true,
-  useEmulators: false,
+export default {
+  production: false,
+  useEmulators: true,
   firebase: {
     apiKey: "AIzaSyC7qxBPbKybyWgEMfqDjYvM_lOmDeiAs9E",
     authDomain: "c8-nft.firebaseapp.com",
@@ -9,5 +9,9 @@ export const environment = {
     messagingSenderId: "526738823122",
     appId: "1:526738823122:web:16b115b2e8181322515a0b",
     measurementId: "G-1F28KLDVCP"
+  },
+  eth: {
+    erc1155: '0x76f0F905C1E474376B20595279210251033b25aC',
+    network: 'rinkeby',
   }
-};
+}

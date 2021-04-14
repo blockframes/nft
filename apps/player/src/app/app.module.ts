@@ -6,12 +6,12 @@ import { AngularFirestoreModule, USE_EMULATOR as USE_FIRESTORE_EMULATOR } from '
 import { UiModule } from '@nft/ui';
 
 // Specific config for emulators
-const FIREBASE_EMUTLATORS = environment.useEmulators ? [
+const FIREBASE_EMUTLATORS = env.useEmulators ? [
   { provide: USE_FIRESTORE_EMULATOR, useValue: ['localhost', 8000] },
 ] : [];
 
 import { AppComponent } from './app.component';
-import { environment } from '../environments/environment';
+import env from '@nft/env';
 import { AngularFireFunctionsModule } from '@angular/fire/functions';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -20,7 +20,7 @@ import { AppRoutingModule } from './app-routing.module';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireModule.initializeApp(env.firebase),
     AngularFirestoreModule,
     AngularFireFunctionsModule,
     AppRoutingModule,
