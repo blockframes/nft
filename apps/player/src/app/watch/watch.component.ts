@@ -19,7 +19,7 @@ export class WatchComponent {
   constructor(
     private route: ActivatedRoute,
     private metamaskService: MetamaskService,
-    private functions: AngularFireFunctions, // @TODO move to appropriate service
+    private functions: AngularFireFunctions,
     private snackBar: MatSnackBar,
   ) { }
 
