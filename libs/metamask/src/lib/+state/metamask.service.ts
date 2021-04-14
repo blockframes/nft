@@ -1,21 +1,36 @@
 import { Injectable } from '@angular/core';
 import { providers, utils } from 'ethers'
 
-export interface ServiceResponse<T> {
-  statut: boolean,
-  message?: string,
-  data?: T
-}
-
 @Injectable({ providedIn: 'root' })
 export class MetamaskService {
 
-  private metamaskDom = (window as any).ethereum;
   private provider: providers.Web3Provider;
   private account: string = '';
+  private signer?: providers.JsonRpcSigner;
+
+  private get ethereum() {
+    if (typeof window !== 'undefined' && 'ethereum' in window) {
+      const ethereum = (window as any).ethereum;
+      if (!ethereum) throw new Error('no-web3-provider');
+      if (!ethereum.isMetaMask) throw new Error('not-metamask');
+      return ethereum;
+    }
+  }
 
   constructor() {
-    this.provider = new providers.Web3Provider(this.metamaskDom);
+    this.provider = new providers.Web3Provider(this.ethereum);
+  }
+
+  async getAccount() {
+    if (this.account) return this.account;
+    const accounts = await this.ethereum.request({ method: 'eth_accounts' });
+
+    if (!!accounts && accounts.length) {
+      this.account = accounts[0];
+      this.signer = this.provider.getSigner();
+    }
+
+    return this.account;
   }
 
   /**
@@ -23,34 +38,24 @@ export class MetamaskService {
    * @returns boolean
    */
   public async hasAccount(): Promise<boolean> {
-    const accounts: any[] = await this.metamaskDom.request({ method: 'eth_accounts' });
-    return !!accounts && accounts.length ? true : false;
+    const account = await this.getAccount();
+    return !!account ? true : false;
   }
 
   /**
-   * 
+   * Will show MetaMask popin
    * @returns first account found in metamask
    */
-  public async requestAccount(): Promise<ServiceResponse<string>> {
-    if (!!this.account) { return { statut: true, data: this.account } };
+  public async requestAccount(): Promise<string> {
+    if (!!this.account) return this.account;
 
-    if (!this.metamaskDom) {
-      console.warn('No Ethereum providers injected in Window!');
-      return { statut: false, message: 'Please install MetaMask!' };
-    }
-
-    if (!this.metamaskDom.isMetaMask) {
-      console.warn('Unknown Ethereum providers injected in Window!');
-      return { statut: false, message: 'Please install MetaMask!' };
-    }
-
-    const accounts: any[] = await this.metamaskDom.request({ method: 'eth_requestAccounts' });
+    const accounts: any[] = await this.ethereum.request({ method: 'eth_requestAccounts' });
 
     if (!!accounts && accounts.length) {
       this.account = accounts[0];
-      return { statut: true, data: this.account };
+      return this.account;
     } else {
-      return { statut: false, message: 'Unknown error' };
+      throw new Error('no-account');
     }
   }
 
@@ -60,11 +65,15 @@ export class MetamaskService {
    * @returns string signature of a signed message
    */
   public signMessage(message: string): Promise<string> {
-    const signer = this.provider.getSigner();
-    return signer.signMessage(message);
+    if (!!this.signer) {
+      return this.signer.signMessage(message);
+    } else {
+      throw new Error('signer-not-defined');
+    }
   }
 
   /**
+   * @TODO Bruce move this to backend functions
    * Check that a message was signed with current account
    * @param message 
    * @param signature 

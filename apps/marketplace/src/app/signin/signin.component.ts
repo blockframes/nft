@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { MetamaskService } from '@nft/metamask';
 
 @Component({
@@ -8,18 +9,14 @@ import { MetamaskService } from '@nft/metamask';
 })
 export class SigninComponent {
 
-  constructor(private metamaskService: MetamaskService) { }
+  constructor(
+    private metamaskService: MetamaskService,
+    private router: Router,
+  ) { }
 
   public async signIn() {
-    const data = await this.metamaskService.requestAccount();
-    console.log(data);
-
-   /* const message = 'test bruce';
-    const signature = await this.metamaskService.signMessage(message);
-
-    const isSigner = this.metamaskService.verifyMessage(message, signature);
-
-    console.log(isSigner);*/
+    await this.metamaskService.requestAccount();
+    this.router.navigate(['/landing']);
   }
 
 }
