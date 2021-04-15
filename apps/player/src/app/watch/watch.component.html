@@ -1,6 +1,7 @@
 <ng-container *ngIf="!(loading$ | async); else loading">
-  <ng-container *ngIf="(playerUrl$ | async) as playerUrl; else noPlayer">
-    <span>{{playerUrl}}</span>
+  <ng-container *ngIf="(player$ | async) as player; else noPlayer">
+    <jwplayer [src]="player.playerUrl" [video]="player.videoUrl"></jwplayer>
+    <span>{{player | json}}</span>
   </ng-container>
   <ng-template #noPlayer>
     <button mat-icon-button (click)="signMessage()">

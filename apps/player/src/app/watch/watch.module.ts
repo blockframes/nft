@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { WatchComponent } from './watch.component';
+import { JwplayerModule } from '../jwplayer/jwplayer.module';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { WatchComponent } from './watch.component';
   ],
   imports: [
     CommonModule,
+    JwplayerModule,
     MatSnackBarModule,
     MatButtonModule,
     MatIconModule,

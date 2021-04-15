@@ -69,7 +69,7 @@ export const checkSignature = async (data: SignedMessage, context: https.Callabl
   const req = context.rawRequest;
   const engineCountry = req.headers['x-appengine-country'];
   if (engineCountry && typeof engineCountry === 'string') {
-    const attribute = meta.attributes.find(attr => attr.trait_type === 'countries');
+    const attribute = meta.attributes?.find(attr => attr.trait_type === 'countries');
     if (attribute) {
       const countries = attribute.value.split(',').map(country => country.trim().toLowerCase());
       const country = engineCountry.trim().toLowerCase();
