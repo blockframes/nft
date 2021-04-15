@@ -21,7 +21,8 @@ export class ERC1155 extends Contract {
       ]);
       return { id, account, balance, meta };
     });
-    return Promise.all(promises);
+    const tokens = await Promise.all(promises);
+    return tokens.filter(token => token.balance);
   }
 
   getMeta(id: number): Promise<ERC1155_Meta> {
@@ -33,7 +34,8 @@ export class ERC1155 extends Contract {
   async getTokenIds(account: string) {
     const filter = this.filters.TransferSingle(null, null, account);
     const events = await this.queryFilter(filter);
-    return events.map((event: Event): number => (event.args![3] as BigNumber).toNumber());
+    const ids = events.map((event: Event): number => (event.args![3] as BigNumber).toNumber());
+    return Array.from(new Set(ids));
   }
 
   /**
