@@ -3,31 +3,7 @@ import { Contract, Event, BigNumber } from 'ethers';
 import { MetamaskService } from './metamask.service';
 import env from '@nft/env';
 import abi from '@nft/model/erc1155.json';
-
-interface ERC1155_Event {
-  TransferSingle: (operator: string, from: string, to: string, id: number, value: number) => void;
-  TransferBatch: (operator: string, from: string, to: string, ids: number[], values: number[]) => void;
-  ApprovalForAll: (owner: string, operator: string, approved: boolean) => void;
-  URI: (value: string, id: number) => void;
-}
-
-export interface ERC1155_Meta {
-  name: string;
-  description: string;
-  image: string;
-  image_data?: string;
-  background_color?: string;
-  animation_url?: string;
-  youtube_url?: string;
-  attributes: { display_type?: string, trait_type: string, value: string }[];
-}
-
-export interface ERC1155_Token {
-  id: string;
-  account: string;
-  balance: number;
-  meta: ERC1155_Meta;
-}
+import { ERC1155_Meta, ERC1155_Token } from '@nft/model';
 
 @Injectable({ providedIn: 'root' })
 export class ERC1155 extends Contract {
@@ -36,7 +12,7 @@ export class ERC1155 extends Contract {
     super(env.eth.erc1155, abi, metamask.signer);
   }
 
-  async getTokens(account: string) {
+  async getTokens(account: string): Promise<ERC1155_Token[]> {
     const ids = await this.getTokenIds(account);
     const promises = ids.map(async (id: number) => {
       const [ balance, meta ] = await Promise.all([
