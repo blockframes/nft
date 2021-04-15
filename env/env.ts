@@ -1,6 +1,6 @@
 export default {
   production: false,
-  useEmulators: true,
+  useEmulators: false,
   firebase: {
     apiKey: "AIzaSyC7qxBPbKybyWgEMfqDjYvM_lOmDeiAs9E",
     authDomain: "c8-nft.firebaseapp.com",
