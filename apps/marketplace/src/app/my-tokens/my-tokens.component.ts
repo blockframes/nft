@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { ERC1155 } from 'libs/metamask/src/lib/+state/erc1155';
 import { MetamaskService } from 'libs/metamask/src/lib/+state/metamask.service';
 
 @Component({
@@ -6,21 +7,13 @@ import { MetamaskService } from 'libs/metamask/src/lib/+state/metamask.service';
   templateUrl: './my-tokens.component.html',
   styleUrls: ['./my-tokens.component.scss']
 })
-export class MyTokensComponent implements OnInit {
-
-  public loggedIn: undefined | boolean;
+export class MyTokensComponent {
+  account$ = this.metamask.getAccount();
+  tokens$ = this.account$.then(async account => this.erc1155.getTokens(account));
 
   constructor(
-    public metamaskService: MetamaskService
+    public metamask: MetamaskService,
+    private erc1155: ERC1155,
   ) { }
-
-  async ngOnInit() {
-    this.loggedIn = await this.metamaskService.hasAccount()
-  }
-
-  public async signIn() {
-    const account = await this.metamaskService.requestAccount();
-    this.loggedIn = !!account;
-  }
 
 }

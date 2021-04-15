@@ -1,9 +1,16 @@
 :host {
   display: block;
-  height: 100%;
   padding: 24px;
 }
 
-button {
-  width: fit-content
+section {
+  box-sizing: border-box;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+
+  img {
+    height: auto;
+  }
 }
