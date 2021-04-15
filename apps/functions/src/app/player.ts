@@ -1,12 +1,12 @@
 
 import { utils, ethers } from 'ethers';
-import { ERC1155_Meta, SignedMessage } from '@nft/model';
+import { ERC1155_Meta, SignedMessage, PlayerResponse } from '@nft/model';
 import { createHash } from 'crypto';
 import * as request from 'request-promise';
 
 import env from '@nft/env';
 import * as abi from '@nft/model/erc1155.json';
-import { logger, https } from 'firebase-functions';
+import { logger, https, config } from 'firebase-functions';
 
 // No typing
 const JWPlayerApi = require('jwplatform');
@@ -15,7 +15,28 @@ const JWPlayerApi = require('jwplatform');
 export const linkDuration = 60 * 60 * 5; // 5 hours in seconds = 60 seconds * 60 minutes * 5 = 18 000 seconds
 
 
-export const checkSignature = async (data: SignedMessage, context: https.CallableContext): Promise<string> => {
+
+export const checkSignature = async (data: SignedMessage, context: https.CallableContext): Promise<PlayerResponse> => {
+
+  const jwplayerKey = config().jwplayer?.key;
+  const jwplayerSecret = config().jwplayer?.secret;
+
+  if (!jwplayerSecret) {
+    throw new Error(`jwplayer.jwplayerSecret env variable hasn't been set ! Check functions config in CLI with 'firebase functions:config:get'!`);
+  }
+
+  const expires = Math.floor(new Date().getTime() / 1000) + linkDuration; // now + 5 hours
+
+  const toSign = `libraries/3sZQvkmL.js:${expires}:${jwplayerSecret}`;
+  const md5 = createHash('md5');
+
+  const playerSignature = md5.update(toSign).digest('hex');
+
+  const playerUrl = `https://cdn.jwplayer.com/libraries/3sZQvkmL.js?exp=${expires}&sig=${playerSignature}`;
+
+
+  // ------------------------------
+
   const { message, signature, tokenId } = data;
   const ethAddress = utils.verifyMessage(message, signature);
   logger.log(`Ethereum address : ${ethAddress}`, `Token Id: ${tokenId}`);
@@ -55,31 +76,10 @@ export const checkSignature = async (data: SignedMessage, context: https.Callabl
     }
   }
 
-
   // TODO: Get jwplayerUrl
 
-  return 'https://foo.bar.com';
+  return {
+    playerUrl,
+    videoUrl: 'https://foo.bar.com'
+  };
 }
-
-export const getPlayerUrl = async (
-  data: unknown,
-  context: https.CallableContext
-): Promise<string> => {
-
-  // const { jwplayerSecret } = config().jwplayer;
-  const jwplayerSecret = 'aaaaaaaaaaaaa';
-
-  if (!jwplayerSecret) {
-    throw new Error(`jwplayer.jwplayerSecret env variable hasn't been set ! Check functions config in CLI with 'firebase functions:config:get'!`);
-  }
-
-  const expires = Math.floor(new Date().getTime() / 1000) + linkDuration; // now + 5 hours
-
-  const toSign = `libraries/3sZQvkmL.js:${expires}:${jwplayerSecret}`;
-  const md5 = createHash('md5');
-
-  const signature = md5.update(toSign).digest('hex');
-
-  const signedUrl = `https://cdn.jwplayer.com/libraries/lpkRdflk.js?exp=${expires}&sig=${signature}`;
-  return signedUrl;
-};
