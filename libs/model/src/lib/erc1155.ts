@@ -14,6 +14,7 @@ export interface ERC1155_Meta {
   background_color?: string;
   animation_url?: string;
   youtube_url?: string;
+  jwPlayerId: string;
   attributes: { display_type?: string, trait_type: string, value: string }[];
 }
 

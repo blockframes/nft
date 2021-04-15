@@ -7,4 +7,5 @@ export interface SignedMessage {
 export interface PlayerResponse {
   playerUrl: string;
   videoUrl: string;
+  jwPlayerId: string;
 }

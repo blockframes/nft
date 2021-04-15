@@ -24,7 +24,7 @@
     "tslib": "^2.0.0",
     "request": "^2.88.2",
     "request-promise": "^4.2.6",
-    "jwplatform": "0.0.5"
+    "jsonwebtoken": "^8.5.1"
   },
   "private": true
 }
