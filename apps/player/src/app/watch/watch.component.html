@@ -1,5 +1,6 @@
 <ng-container *ngIf="!(loading$ | async); else loading">
   <ng-container *ngIf="(playerUrl$ | async) as playerUrl; else noPlayer">
+    <jwplayer [src]="playerUrl"></jwplayer>
     <span>{{playerUrl}}</span>
   </ng-container>
   <ng-template #noPlayer>
