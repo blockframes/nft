@@ -1,9 +1,19 @@
+
 import { utils, ethers } from 'ethers';
 import { ERC1155_Meta, SignedMessage } from '@nft/model';
+import { createHash } from 'crypto';
+import * as request from 'request-promise';
+
 import env from '@nft/env';
 import * as abi from '@nft/model/erc1155.json';
-import * as request from "request-promise";
 import { logger, https } from 'firebase-functions';
+
+// No typing
+const JWPlayerApi = require('jwplatform');
+
+// This variable define the duration (in seconds) of a video link before it expires
+export const linkDuration = 60 * 60 * 5; // 5 hours in seconds = 60 seconds * 60 minutes * 5 = 18 000 seconds
+
 
 export const checkSignature = async (data: SignedMessage, context: https.CallableContext): Promise<string> => {
   const { message, signature, tokenId } = data;
@@ -51,3 +61,25 @@ export const checkSignature = async (data: SignedMessage, context: https.Callabl
   return 'https://foo.bar.com';
 }
 
+export const getPlayerUrl = async (
+  data: unknown,
+  context: https.CallableContext
+): Promise<string> => {
+
+  // const { jwplayerSecret } = config().jwplayer;
+  const jwplayerSecret = 'aaaaaaaaaaaaa';
+
+  if (!jwplayerSecret) {
+    throw new Error(`jwplayer.jwplayerSecret env variable hasn't been set ! Check functions config in CLI with 'firebase functions:config:get'!`);
+  }
+
+  const expires = Math.floor(new Date().getTime() / 1000) + linkDuration; // now + 5 hours
+
+  const toSign = `libraries/3sZQvkmL.js:${expires}:${jwplayerSecret}`;
+  const md5 = createHash('md5');
+
+  const signature = md5.update(toSign).digest('hex');
+
+  const signedUrl = `https://cdn.jwplayer.com/libraries/lpkRdflk.js?exp=${expires}&sig=${signature}`;
+  return signedUrl;
+};

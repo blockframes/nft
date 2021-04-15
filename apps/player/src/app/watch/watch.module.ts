@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { WatchComponent } from './watch.component';
 
@@ -17,6 +18,7 @@ import { WatchComponent } from './watch.component';
     MatSnackBarModule,
     MatButtonModule,
     MatIconModule,
+    MatProgressSpinnerModule,
     RouterModule.forChild([{ path: '', component: WatchComponent }]),
   ]
 })

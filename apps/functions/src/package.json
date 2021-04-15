@@ -23,7 +23,8 @@
     "firebase-functions": "^3.13.2",
     "tslib": "^2.0.0",
     "request": "^2.88.2",
-    "request-promise": "^4.2.6"
+    "request-promise": "^4.2.6",
+    "jwplatform": "0.0.5"
   },
   "private": true
 }

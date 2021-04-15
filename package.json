@@ -46,6 +46,7 @@
     "firebase": "^7.0 || ^8.0",
     "firebase-admin": "^9.4.1",
     "firebase-functions": "^3.13.2",
+    "jwplatform": "0.0.5",
     "opensea-js": "^1.1.11",
     "request": "^2.88.2",
     "request-promise": "^4.2.6",
