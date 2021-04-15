@@ -16,6 +16,8 @@ export class ContactUsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  //TODO:
+  //https://github.com/blockframes/nft/issues/37
   sendMail() {
     window.open(`mailto:mbangera@cascade8.com?subject=${this.subject}&body=${this.message}`);
   }
