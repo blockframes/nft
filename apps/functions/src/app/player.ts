@@ -21,8 +21,11 @@ export const checkSignature = async (data: SignedMessage, context: https.Callabl
   const jwplayerKey = config().jwplayer?.key;
   const jwplayerSecret = config().jwplayer?.secret;
 
+  if (!jwplayerKey) {
+    throw new https.HttpsError('permission-denied', `jwplayer.key env variable hasn't been set ! Check functions config in CLI with 'firebase functions:config:get'!`);
+  }
   if (!jwplayerSecret) {
-    throw new Error(`jwplayer.jwplayerSecret env variable hasn't been set ! Check functions config in CLI with 'firebase functions:config:get'!`);
+    throw new https.HttpsError('permission-denied', `jwplayer.secret env variable hasn't been set ! Check functions config in CLI with 'firebase functions:config:get'!`);
   }
 
   const expires = Math.floor(new Date().getTime() / 1000) + linkDuration; // now + 5 hours
