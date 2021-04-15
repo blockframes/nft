@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MetamaskService } from 'libs/metamask/src/lib/+state/metamask.service';
 
 @Component({
   selector: 'nft-header',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  public loggedIn: undefined | boolean;
 
-  ngOnInit(): void {
+  constructor(
+    public metamaskService: MetamaskService
+  ) { }
+
+  async ngOnInit() {
+    this.loggedIn = await this.metamaskService.hasAccount();
   }
 
+  public async switchAccount() {
+    await this.metamaskService.changeAccount();
+  }
 }

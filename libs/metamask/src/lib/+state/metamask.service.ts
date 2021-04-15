@@ -62,15 +62,15 @@ export class MetamaskService {
     }
   }
 
-  public async changeAccount() {
-    await this.ethereum.request({
-      method: "eth_requestAccounts",
-      params: [
-        {
-          eth_accounts: {}
-        }
-      ]
-    });
+  public async changeAccount(): Promise<boolean> {
+    // await this.ethereum.request({
+    //   method: "eth_requestAccounts",
+    //   params: [
+    //     {
+    //       eth_accounts: {}
+    //     }
+    //   ]
+    // });
 
     if (this.hasAccount()) {
     // Runs only they are brand new, or have hit the disconnect button
@@ -83,6 +83,7 @@ export class MetamaskService {
         ]
       });
     }
+    return true;
   }
 
 
