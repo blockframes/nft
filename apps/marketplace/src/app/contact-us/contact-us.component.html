@@ -3,19 +3,20 @@
 <h4>Mon - Fri 10:00 AM - 8:00 PM CET</h4>
 <h3>Send us a message and we’ll quickly get back to you :</h3>
 
-<div class="section">
+<mat-form-field appearance="outline">
   <mat-label>Subject</mat-label><br>
   <input matInput placeholder="Ex. Token Issue" [(ngModel)]='subject'>
-</div>
+</mat-form-field>
 
-<div class="section">
+
+<mat-form-field appearance="outline">
   <mat-label>Message</mat-label><br>
-  <textarea placeholder="Ex. I am unable to.." [(ngModel)]='message'></textarea>
-</div>
+  <textarea matInput placeholder="Ex. I am unable to.." [(ngModel)]='message'></textarea>
+</mat-form-field>
+
 
 <div fxLayout="row" fxLayoutAlign="center">
   <button (click)="sendMail()" type="submit" color="primary" mat-stroked-button>
-    <mat-icon svgIcon="mail"></mat-icon>
     <span>Send a message</span>
   </button>
 </div>
