@@ -19,7 +19,9 @@ export const checkSignature = async (data: SignedMessage, context: https.Callabl
   ]);
 
   const amount: number = balance.toNumber();
-  if (amount === 0) throw new https.HttpsError('permission-denied', `${ethAddress} does not own token : ${tokenId}`);
+  if (amount === 0) {
+    throw new https.HttpsError('permission-denied', `${ethAddress} does not own token : ${tokenId}`);
+  }
 
   const options = {
     method: 'GET',
@@ -29,10 +31,20 @@ export const checkSignature = async (data: SignedMessage, context: https.Callabl
   };
   const meta: ERC1155_Meta = await request.get(options);
 
-  // TODO: Check country
+  // Check country
   const req = context.rawRequest;
-  const country = req.headers['x-appengine-country'];
-  const city = req.headers['x-appengine-city'];
+  const engineCountry = req.headers['x-appengine-country'];
+  if (engineCountry && typeof engineCountry === 'string') {
+    const attribute = meta.attributes.find(attr => attr.trait_type === 'countries');
+    if (attribute) {
+      const countries = attribute.value.split(',').map(country => country.trim().toLowerCase());
+      const country = engineCountry.trim().toLowerCase();
+      if (!countries.includes(country)) {
+        throw new https.HttpsError('permission-denied', 'Title not available in your country.');
+      }
+    }
+  }
+
 
   // TODO: Get jwplayerUrl
 
