@@ -3,11 +3,16 @@ import { SignedMessage } from '@nft/model';
 import env from '@nft/env';
 import * as abi from '@nft/model/erc1155.json';
 import * as request from "request-promise";
+import type { https } from 'firebase-functions';
 
-export const checkSignature = async (data: SignedMessage): Promise<string> => {
+export const checkSignature = async (data: SignedMessage, context: https.CallableContext): Promise<string> => {
   const { message, signature, tokenId } = data;
   const ethAddress = utils.verifyMessage(message, signature);
   console.log(`Ethereum address : ${ethAddress}`, `Token Id: ${tokenId}`);
+
+  const req = context.rawRequest;
+  // TODO: find how to get the territory
+
 
   const provider = ethers.getDefaultProvider(env.eth.network);
   const contract = new ethers.Contract(env.eth.erc1155, abi, provider);
