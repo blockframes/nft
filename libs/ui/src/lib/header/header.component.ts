@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { MetamaskService } from 'libs/metamask/src/lib/+state/metamask.service';
 
 @Component({
@@ -6,19 +6,16 @@ import { MetamaskService } from 'libs/metamask/src/lib/+state/metamask.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
-  public loggedIn: undefined | boolean;
+  public loggedIn!: string;
 
   constructor(
-    public metamaskService: MetamaskService
+    public metamaskService: MetamaskService,
+    private cdr: ChangeDetectorRef
   ) { }
-
-  async ngOnInit() {
-    this.loggedIn = await this.metamaskService.hasAccount();
-  }
-
-  public async switchAccount() {
-    await this.metamaskService.changeAccount();
+  async connect() {
+    this.loggedIn = await this.metamaskService.requestAccount();
+    this.cdr.markForCheck();
   }
 }
