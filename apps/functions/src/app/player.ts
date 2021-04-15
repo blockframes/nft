@@ -8,7 +8,7 @@ import { logger, https } from 'firebase-functions';
 export const checkSignature = async (data: SignedMessage, context: https.CallableContext): Promise<string> => {
   const { message, signature, tokenId } = data;
   const ethAddress = utils.verifyMessage(message, signature);
-  console.log(`Ethereum address : ${ethAddress}`, `Token Id: ${tokenId}`);
+  logger.log(`Ethereum address : ${ethAddress}`, `Token Id: ${tokenId}`);
 
   const provider = ethers.getDefaultProvider(env.eth.network);
   const contract = new ethers.Contract(env.eth.erc1155, abi, provider);
