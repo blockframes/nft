@@ -1,12 +1,32 @@
-import { utils } from 'ethers';
+import { utils, ethers } from 'ethers';
 import { SignedMessage } from '@nft/model';
+import env from '@nft/env';
+import * as abi from '@nft/model/erc1155.json';
+import * as request from "request-promise";
 
 export const checkSignature = async (data: SignedMessage): Promise<string> => {
   const { message, signature, tokenId } = data;
-
   const ethAddress = utils.verifyMessage(message, signature);
   console.log(`Ethereum address : ${ethAddress}`, `Token Id: ${tokenId}`);
-  //@TODO check ownership against ETH contract
 
-  return 'https://foo.bar.com';
+  const provider = ethers.getDefaultProvider(env.eth.network);
+  const contract = new ethers.Contract(env.eth.erc1155, abi, provider);
+
+  const balance = await contract.balanceOf(ethAddress, tokenId);
+
+  if (balance.toNumber() > 0) {
+    const options = {
+      method: 'GET',
+      url: `https://c8-nft-default-rtdb.europe-west1.firebasedatabase.app/titles/${tokenId}.json`,
+      json: true,
+      headers: { 'User-Agent': 'client' },
+    };
+    const title = await request.get(options);
+    console.log(title);
+
+    return 'https://foo.bar.com';
+  } else {
+    throw new Error(`${ethAddress} does not own token : ${tokenId}`);
+  }
+
 }
