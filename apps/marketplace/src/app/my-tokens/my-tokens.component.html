@@ -1,12 +1,19 @@
 <h1>Your Tokens</h1>
 <section>
-  <mat-card *ngFor="let token of tokens$ | async">
-    <a [routerLink]="['../watch', token.id]" matRipple>
-      <img mat-card-image [src]="token.meta.image" width="300" height="400"/>
-    </a>
-    <mat-card-header>
-      <mat-card-title>{{ token.meta.name }}</mat-card-title>
-      <mat-card-subtitle>Balance: {{ token.balance }}</mat-card-subtitle>
-    </mat-card-header>
-  </mat-card>
+  <ng-container *ngIf="tokens$ | async as  tokens">
+    <ng-container *ngIf="tokens.length; else noTokens">
+      <mat-card *ngFor="let token of tokens">
+        <a [routerLink]="['../watch', token.id]" matRipple>
+          <img mat-card-image [src]="token.meta.image" width="300" height="400" />
+        </a>
+        <mat-card-header>
+          <mat-card-title>{{ token.meta.name }}</mat-card-title>
+          <mat-card-subtitle>Balance: {{ token.balance }}</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+    </ng-container>
+  </ng-container>
+  <ng-template #noTokens>
+    <h3>We couldn't find tokens for your address: {{ account$ | async }}</h3>
+  </ng-template>
 </section>
