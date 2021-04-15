@@ -1,37 +1,41 @@
 import { utils, ethers } from 'ethers';
-import { SignedMessage } from '@nft/model';
+import { ERC1155_Meta, SignedMessage } from '@nft/model';
 import env from '@nft/env';
 import * as abi from '@nft/model/erc1155.json';
 import * as request from "request-promise";
-import type { https } from 'firebase-functions';
+import { logger, https } from 'firebase-functions';
 
 export const checkSignature = async (data: SignedMessage, context: https.CallableContext): Promise<string> => {
   const { message, signature, tokenId } = data;
   const ethAddress = utils.verifyMessage(message, signature);
   console.log(`Ethereum address : ${ethAddress}`, `Token Id: ${tokenId}`);
 
-  const req = context.rawRequest;
-  // TODO: find how to get the territory
-
-
   const provider = ethers.getDefaultProvider(env.eth.network);
   const contract = new ethers.Contract(env.eth.erc1155, abi, provider);
 
-  const balance = await contract.balanceOf(ethAddress, tokenId);
+  const [balance, uri] = await Promise.all([
+    contract.balanceOf(ethAddress, tokenId),
+    contract.uri(tokenId),
+  ]);
 
-  if (balance.toNumber() > 0) {
-    const options = {
-      method: 'GET',
-      url: `https://c8-nft-default-rtdb.europe-west1.firebasedatabase.app/titles/${tokenId}.json`,
-      json: true,
-      headers: { 'User-Agent': 'client' },
-    };
-    const title = await request.get(options);
-    console.log(title);
+  const amount: number = balance.toNumber();
+  if (amount === 0) throw new https.HttpsError('permission-denied', `${ethAddress} does not own token : ${tokenId}`);
 
-    return 'https://foo.bar.com';
-  } else {
-    throw new Error(`${ethAddress} does not own token : ${tokenId}`);
-  }
+  const options = {
+    method: 'GET',
+    url: uri,
+    json: true,
+    headers: { 'User-Agent': 'client' },
+  };
+  const meta: ERC1155_Meta = await request.get(options);
 
+  // TODO: Check country
+  const req = context.rawRequest;
+  const country = req.headers['x-appengine-country'];
+  const city = req.headers['x-appengine-city'];
+
+  // TODO: Get jwplayerUrl
+
+  return 'https://foo.bar.com';
 }
+
