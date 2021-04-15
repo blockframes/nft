@@ -3,3 +3,8 @@ export interface SignedMessage {
   signature: string,
   tokenId: number
 }
+
+export interface PlayerResponse {
+  playerUrl: string;
+  videoUrl: string;
+}
