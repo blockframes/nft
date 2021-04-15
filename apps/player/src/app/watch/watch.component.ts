@@ -33,10 +33,10 @@ export class WatchComponent {
       const tokenId = parseInt(this.route.snapshot.paramMap.get('tokenId') as string, 10);
       const message = 'I confirm that I own this token';
       const signature = await this.metamaskService.signMessage(message);
-      const playerUrl = await this.getPlayerId({ tokenId, message, signature }).toPromise();
+      const player = await this.getPlayerId({ tokenId, message, signature }).toPromise();
       this.snackBar.open('Message signed !', '', { duration: 2000 });
-      console.log(playerUrl);
-      this.player$.next(playerUrl);
+      console.log(player);
+      this.player$.next(player);
     } catch (error) {
       console.error(error);
       this.snackBar.open('Could not sign message', '', { duration: 2000 });
