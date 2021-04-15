@@ -35,7 +35,6 @@ export class WatchComponent {
       const signature = await this.metamaskService.signMessage(message);
       const player = await this.getPlayerId({ tokenId, message, signature }).toPromise();
       this.snackBar.open('Message signed !', '', { duration: 2000 });
-      console.log(player);
       this.player$.next(player);
     } catch (error) {
       console.error(error);
