@@ -21,7 +21,8 @@ export class ERC1155 extends Contract {
       ]);
       return { id, account, balance, meta };
     });
-    return Promise.all(promises);
+    const tokens = await Promise.all(promises);
+    return tokens.filter(token => token.balance);
   }
 
   getMeta(id: number): Promise<ERC1155_Meta> {
