@@ -2,9 +2,8 @@
   "targets": {
     "c8-nft": {
       "hosting": {
-        "marketplace": [
-          "c8-nft"
-        ]
+        "marketplace": ["c8-nft"],
+        "player": ["c8-nft-player"]
       }
     }
   },
