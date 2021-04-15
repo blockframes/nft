@@ -19,6 +19,6 @@ export class ContactUsComponent implements OnInit {
   //TODO:
   //https://github.com/blockframes/nft/issues/37
   sendMail() {
-    window.open(`mailto:mbangera@cascade8.com?subject=${this.subject}&body=${this.message}`);
+    window.open(`mailto:vchoukroun@cascade8.com?subject=${this.subject}&body=${this.message}`);
   }
 }
