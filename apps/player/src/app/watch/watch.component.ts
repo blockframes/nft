@@ -32,6 +32,7 @@ export class WatchComponent {
       this.snackBar.open('Message signed !', '', { duration: 2000 });
       console.log(this.playerUrl);
     } catch (error) {
+      console.error(error);
       this.snackBar.open('Could not sign message', '', { duration: 2000 });
     }
   }
