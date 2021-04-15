@@ -2,8 +2,20 @@
   <mat-toolbar-row>
     <a mat-button routerLink="landing">Home</a>
     <div>
-      <a mat-button routerLink="marketplace">Marketplace</a>
-      <a mat-button routerLink="account">My NFTs</a>
+      <a mat-button routerLink="marketplace"> Marketplace </a>
+      <a mat-button routerLink="account"> My NFTs </a>
+      <a mat-button (click)="switchAccount()">Select Account(s)</a>
+      <ng-container *ngIf="loggedIn else login">
+        <a class="connected">
+          Connected
+        </a> <img class="logo" alt="MetaMaskLogo" src="../../../../../assets/images/metamask.png">
+      </ng-container>
+
+      <ng-template #login>
+        <a class="disconnected">
+          Not connected
+        </a> <img class="logo" alt="MetaMaskLogo" src="../../../../../assets/images/metamask.png">
+      </ng-template>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
