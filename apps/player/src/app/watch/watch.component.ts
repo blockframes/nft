@@ -4,9 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { MetamaskService } from '@nft/metamask';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SignedMessage } from '@nft/model';
+import { PlayerResponse, SignedMessage } from '@nft/model';
 
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, ReplaySubject } from 'rxjs';
 
 @Component({
   selector: 'nft-watch',
@@ -15,10 +15,10 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class WatchComponent {
 
-  getPlayerId = this.functions.httpsCallable<SignedMessage, string>('getPlayerId');
+  getPlayerId = this.functions.httpsCallable<SignedMessage, PlayerResponse>('getPlayerId');
 
   public loading$ = new BehaviorSubject(false);
-  public playerUrl$ = new BehaviorSubject('');
+  public player$ = new ReplaySubject<PlayerResponse>();
 
   constructor(
     private route: ActivatedRoute,
@@ -36,7 +36,7 @@ export class WatchComponent {
       const playerUrl = await this.getPlayerId({ tokenId, message, signature }).toPromise();
       this.snackBar.open('Message signed !', '', { duration: 2000 });
       console.log(playerUrl);
-      this.playerUrl$.next(playerUrl);
+      this.player$.next(playerUrl);
     } catch (error) {
       console.error(error);
       this.snackBar.open('Could not sign message', '', { duration: 2000 });

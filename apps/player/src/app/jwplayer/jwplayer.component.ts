@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, Inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Inject, Input } from '@angular/core';
 import { combineLatest, ReplaySubject } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
 
@@ -75,15 +75,15 @@ export class JwplayerComponent {
     el: ElementRef,
   ) {
     this.hasScript.pipe(
-      //switchMap(() => combineLatest([this.videoUrl, this.jwplayerId])),
+      switchMap(() => combineLatest([this.videoUrl, this.jwplayerId])),
       take(1)
-    ).subscribe(() => {
+    ).subscribe(([video, jwplayerId]) => {
       const player = jwplayer(el.nativeElement);
-      // player.setup({
-      //   file: video,
-      //   image: `https://cdn.jwplayer.com/thumbs/${jwplayerId}.jpg`,
-      // });
-      // player.on('ready', () => player.play());
+      player.setup({
+        file: video,
+        image: `https://cdn.jwplayer.com/thumbs/${jwplayerId}.jpg`,
+      });
+      player.on('ready', () => player.play());
     })
   }
 }
