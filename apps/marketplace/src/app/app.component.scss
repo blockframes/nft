@@ -12,20 +12,11 @@
   grid-column: span 2;
 }
 
-.flex {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-}
-
 /*
  * Make the Component injected by Router Outlet full height:
  */
  main {
   display: flex;
   flex-direction: column;
-  > *:not(router-outlet) {
-    flex: 1;
-    display: block;
-  }
+  height: 100vh;
 }
