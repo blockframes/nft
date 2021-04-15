@@ -7,15 +7,18 @@ import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
-  declarations: [
-    AccountComponent
-  ],
   imports: [
     CommonModule,
     MatRippleModule,
     MatCardModule,
     MatToolbarModule,
     RouterModule.forChild([{ path: '', component: AccountComponent }])
+  ],
+  declarations: [
+    AccountComponent
+  ],
+  exports: [
+    AccountComponent
   ]
 })
 export class AccountModule { }

@@ -1,22 +1,9 @@
 :host {
-  display: block;
-  font-family: sans-serif;
-  min-width: 300px;
-}
-
-.gutter-left {
-  margin-left: 9px;
-}
-
-.col-span-2 {
-  grid-column: span 2;
-}
-
-/*
- * Make the Component injected by Router Outlet full height:
- */
- main {
   display: flex;
   flex-direction: column;
   height: 100vh;
+
+  main {
+    height: 100%;
+  }
 }
