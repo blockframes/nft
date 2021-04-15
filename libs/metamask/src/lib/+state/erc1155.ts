@@ -33,7 +33,8 @@ export class ERC1155 extends Contract {
   async getTokenIds(account: string) {
     const filter = this.filters.TransferSingle(null, null, account);
     const events = await this.queryFilter(filter);
-    return events.map((event: Event): number => (event.args![3] as BigNumber).toNumber());
+    const ids = events.map((event: Event): number => (event.args![3] as BigNumber).toNumber());
+    return Array.from(new Set(ids));
   }
 
   /**
