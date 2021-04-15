@@ -7,9 +7,7 @@ import * as request from 'request-promise';
 import env from '@nft/env';
 import * as abi from '@nft/model/erc1155.json';
 import { logger, https, config } from 'firebase-functions';
-
-// No typing
-const JWPlayerApi = require('jwplatform');
+import { sign } from 'jsonwebtoken';
 
 // This variable define the duration (in seconds) of a video link before it expires
 export const linkDuration = 60 * 60 * 5; // 5 hours in seconds = 60 seconds * 60 minutes * 5 = 18 000 seconds
@@ -18,14 +16,10 @@ export const linkDuration = 60 * 60 * 5; // 5 hours in seconds = 60 seconds * 60
 
 export const checkSignature = async (data: SignedMessage, context: https.CallableContext): Promise<PlayerResponse> => {
 
-  const jwplayerKey = config().jwplayer?.key;
   const jwplayerSecret = config().jwplayer?.secret;
 
-  if (!jwplayerKey) {
-    throw new https.HttpsError('permission-denied', `jwplayer.key env variable hasn't been set ! Check functions config in CLI with 'firebase functions:config:get'!`);
-  }
   if (!jwplayerSecret) {
-    throw new https.HttpsError('permission-denied', `jwplayer.secret env variable hasn't been set ! Check functions config in CLI with 'firebase functions:config:get'!`);
+    throw new https.HttpsError('failed-precondition', `jwplayer.secret env variable hasn't been set ! Check functions config in CLI with 'firebase functions:config:get'!`);
   }
 
   const expires = Math.floor(new Date().getTime() / 1000) + linkDuration; // now + 5 hours
@@ -36,7 +30,6 @@ export const checkSignature = async (data: SignedMessage, context: https.Callabl
   const playerSignature = md5.update(toSign).digest('hex');
 
   const playerUrl = `https://cdn.jwplayer.com/libraries/3sZQvkmL.js?exp=${expires}&sig=${playerSignature}`;
-
 
   // ------------------------------
 
@@ -79,10 +72,18 @@ export const checkSignature = async (data: SignedMessage, context: https.Callabl
     }
   }
 
-  // TODO: Get jwplayerUrl
+  const resource = `/v2/media/${meta.jwPlayerId}/drm/RYP9GrKb`;
+
+  const jwt = sign({
+    resource,
+    exp: expires
+  }, jwplayerSecret);
+
+  const videoUrl = `https://cdn.jwplayer.com${resource}?token=${jwt}`;
 
   return {
     playerUrl,
-    videoUrl: 'https://foo.bar.com'
+    videoUrl,
+    jwPlayerId: meta.jwPlayerId,
   };
 }
