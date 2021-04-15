@@ -1,4 +1,28 @@
 :host {
   display: block;
-  height: 100%;
+  margin: auto;
+  max-width: 900px;
+  padding: 24px;
+}
+
+mat-card {
+  width: 100vw;
+  cursor: pointer;
+  img {
+    height: 150px;
+  }
+}
+
+.section {
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  input  {
+    width: 100%
+  }
+
+  textarea  {
+    width: 100%
+  }
+
 }
