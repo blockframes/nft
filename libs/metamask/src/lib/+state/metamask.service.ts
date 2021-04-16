@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import env from '@nft/env';
 import { providers } from 'ethers'
 import { BehaviorSubject } from 'rxjs';
 
@@ -88,5 +89,16 @@ export class MetamaskService {
     } else {
       throw new Error('signer-not-defined');
     }
+  }
+
+  public async getCurentNetwork(): Promise<string> {
+    const provider = new providers.Web3Provider(this.ethereum);
+    const network = await provider.getNetwork();
+    return network.name;
+  }
+
+  public async isOnWantedNetwork(): Promise<boolean>  {
+    const network = await this.getCurentNetwork();
+    return network === env.eth.network;
   }
 }
