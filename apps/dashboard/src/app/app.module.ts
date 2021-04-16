@@ -22,13 +22,13 @@ import { MatButtonModule } from '@angular/material/button';
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    UiModule,
     BrowserModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(env.firebase),
     AngularFirestoreModule,
     AngularFireFunctionsModule,
     AppRoutingModule,
+    UiModule,
     // MATERIALS for dashboard admin
     MatToolbarModule,
     MatButtonModule
