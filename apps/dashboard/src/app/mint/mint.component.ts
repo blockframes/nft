@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 
@@ -13,12 +13,13 @@ export class MintComponent {
   readonly separatorKeyCodes = [ENTER, COMMA];
 
   public mintForm = new FormGroup({
-    name: new FormControl(''),
-    externalLink: new FormControl(''),
+    name: new FormControl('', Validators.required),
+    image: new FormControl('', Validators.required),
+    jwPlayerId: new FormControl(''),
     description: new FormControl(''),
     metadata: new FormGroup({
-      runningTime: new FormControl(null),
-      countries: new FormControl()
+      runningTime: new FormControl(null, Validators.required),
+      countries: new FormControl('')
     })
   });
 
