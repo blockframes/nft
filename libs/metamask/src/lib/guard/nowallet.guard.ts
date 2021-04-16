@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, UrlTree } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { MetamaskService } from '../+state/metamask.service';
 
 @Injectable({
@@ -11,9 +13,7 @@ export class NoEthereumWalletGuard implements CanActivate {
     private service: MetamaskService,
   ) { }
 
-  async canActivate(): Promise<boolean | UrlTree> {
-    return this.service.hasAccount()
-      .then(hasAccount => !hasAccount || this.router.parseUrl('/'))
-      .catch(_ => this.router.parseUrl('/'));
+  canActivate(): Observable<boolean | UrlTree> {
+    return this.service.account$.pipe(map(account => !account ? true : this.router.parseUrl('/')))
   }
 }

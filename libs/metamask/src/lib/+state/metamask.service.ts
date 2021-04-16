@@ -1,30 +1,45 @@
 import { Injectable } from '@angular/core';
 import { providers } from 'ethers'
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class MetamaskService {
 
-  private account: string = '';
+  private _ethereum: any;
+  private _account = new BehaviorSubject<string>('');
+
+  public account$ = this._account.asObservable();
   signer?: providers.JsonRpcSigner;
 
+  private get account() {
+    return this._account.value
+  }
+
   private get ethereum() {
-    if (typeof window !== 'undefined' && 'ethereum' in window) {
-      const ethereum = (window as any).ethereum;
-      if (!ethereum) throw new Error('no-web3-provider');
-      if (!ethereum.isMetaMask) throw new Error('not-metamask');
-      return ethereum;
+    if (!this._ethereum) {
+      if (typeof window !== 'undefined' && 'ethereum' in window) {
+        const ethereum = (window as any).ethereum;
+        if (!ethereum) throw new Error('no-web3-provider');
+        if (!ethereum.isMetaMask) throw new Error('not-metamask');
+        ethereum.on('accountsChanged', (accounts: any) => {
+          this._account.next(accounts[0])
+        });
+        return ethereum;
+      }
+    } else {
+      return this._ethereum;
     }
   }
 
   async getAccount() {
-    if (this.account) return this.account;
+    if (!!this.account) return this.account
 
     try {
       const provider = new providers.Web3Provider(this.ethereum);
       const accounts = await this.ethereum.request({ method: 'eth_accounts' });
 
       if (!!accounts && accounts.length) {
-        this.account = accounts[0];
+        this._account.next(accounts[0]);
         this.signer = provider.getSigner();
       }
     } catch (err) {
@@ -51,7 +66,7 @@ export class MetamaskService {
     try {
       const accounts: any[] = await this.ethereum.request({ method: 'eth_requestAccounts' });
       if (!!accounts && accounts.length) {
-        this.account = accounts[0];
+        this._account.next(accounts[0]);
         this.signer = new providers.Web3Provider(this.ethereum).getSigner();
         return this.account;
       } else {
