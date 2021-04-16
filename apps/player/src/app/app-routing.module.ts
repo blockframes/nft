@@ -22,7 +22,11 @@ const routes: Routes = [
     path: 'watch/:tokenId',
     canActivate: [EthereumWalletGuard],
     loadChildren: () => import('./watch/watch.module').then(m => m.WatchModule)
-  }
+  },
+  {
+    path: 'drm',
+    loadChildren: () => import('./drm-test/watch.module').then(m => m.WatchModule),
+  },
 ];
 
 @NgModule({
