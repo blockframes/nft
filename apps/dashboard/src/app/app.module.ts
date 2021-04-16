@@ -14,14 +14,13 @@ import { AppComponent } from './app.component';
 import env from '@nft/env';
 import { UiModule } from '@nft/ui';
 import { AppRoutingModule } from './app-routing.module';
-import { HeaderComponent } from './header/header.component';
 
 // MATERIALS
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent],
+  declarations: [AppComponent],
   imports: [
     UiModule,
     BrowserModule,
@@ -35,7 +34,6 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule
   ],
   exports: [
-    HeaderComponent
   ],
   providers: [...FIREBASE_EMUTLATORS],
   bootstrap: [AppComponent],
