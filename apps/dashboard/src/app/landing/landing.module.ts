@@ -15,7 +15,7 @@ import { RouterModule } from '@angular/router';
     MatCardModule
   ],
   declarations: [
-    //LandingComponent got an incomprehensible error if i don't remove this
+    LandingComponent
   ]
 })
 export class LandingModule { }
