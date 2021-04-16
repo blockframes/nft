@@ -30,10 +30,10 @@
       <mat-hint>In minutes</mat-hint>
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" formArrayName="countries">
       <mat-label>Countries</mat-label>
       <mat-chip-list #countryList aria-label="countries">
-        <mat-chip *ngFor="let country of countries" selectable removable (removed)="remove(country)">{{ country }}</mat-chip>
+        <mat-chip *ngFor="let country of countries.controls, let i = index" selectable removable (removed)="remove(i)">{{ country.value }}</mat-chip>
         <input placeholder="Countries" [matChipInputFor]="countryList" [matChipInputSeparatorKeyCodes]="separatorKeyCodes"
         matChipInputAddOnBlur (matChipInputTokenEnd)="add($event)" formControlName="countries">
       </mat-chip-list>

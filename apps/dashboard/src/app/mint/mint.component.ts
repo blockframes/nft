@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 
@@ -9,7 +9,6 @@ import { MatChipInputEvent } from '@angular/material/chips';
   styleUrls: ['./mint.component.scss'],
 })
 export class MintComponent {
-  countries: string[] = [];
   readonly separatorKeyCodes = [ENTER, COMMA];
 
   public mintForm = new FormGroup({
@@ -19,7 +18,7 @@ export class MintComponent {
     description: new FormControl(''),
     metadata: new FormGroup({
       runningTime: new FormControl(null, Validators.required),
-      countries: new FormControl('')
+      countries: new FormArray([])
     })
   });
 
@@ -27,24 +26,18 @@ export class MintComponent {
     console.log(this.mintForm);
   }
 
-  // CHIPS LOGIC
-  add(event: MatChipInputEvent) {
-    const input = event.input;
-    const value = event.value;
-
-    if ((value || '').trim()) {
-      this.countries.push(value);
-    }
-
-    if (input) {
-      input.value = '';
-    }
+  get countries() {
+    return this.mintForm.controls.metadata.get('countries') as FormArray;
   }
 
-  remove(country: string) {
-    const index = this.countries.indexOf(country);
-    if (index >= 0) {
-      this.countries.splice(index, 1);
-    }
+  // CHIPS LOGIC
+  add(event: MatChipInputEvent) {
+    this.countries.push(new FormControl(event.value));
+    event.value = '';
+    event.input.value = '';
+  }
+
+  remove(index: number) {
+    this.countries.removeAt(index);
   }
 }
