@@ -14,9 +14,14 @@ import { AppComponent } from './app.component';
 import env from '@nft/env';
 import { UiModule } from '@nft/ui';
 import { AppRoutingModule } from './app-routing.module';
+import { HeaderComponent } from './header/header.component';
+
+// MATERIALS
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, HeaderComponent],
   imports: [
     UiModule,
     BrowserModule,
@@ -24,7 +29,13 @@ import { AppRoutingModule } from './app-routing.module';
     AngularFireModule.initializeApp(env.firebase),
     AngularFirestoreModule,
     AngularFireFunctionsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    // MATERIALS for dashboard admin
+    MatToolbarModule,
+    MatButtonModule
+  ],
+  exports: [
+    HeaderComponent
   ],
   providers: [...FIREBASE_EMUTLATORS],
   bootstrap: [AppComponent],
