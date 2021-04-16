@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { UiModule } from '@nft/ui';
+import { NetworkModule } from '@nft/metamask';
 
 @NgModule({
   declarations: [AppComponent],
@@ -12,7 +13,9 @@ import { UiModule } from '@nft/ui';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    UiModule],
+    NetworkModule,
+    UiModule
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
