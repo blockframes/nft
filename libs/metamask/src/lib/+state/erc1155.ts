@@ -1,15 +1,27 @@
 import { Injectable } from '@angular/core';
+import { AngularFireDatabase } from '@angular/fire/database'
 import { Contract, Event, BigNumber } from 'ethers';
 import { MetamaskService } from './metamask.service';
 import env from '@nft/env';
 import abi from '@nft/model/erc1155.json';
 import { ERC1155_Meta, ERC1155_Token } from '@nft/model';
+import { take } from 'rxjs/operators';
+
+interface Metadata {
+  name: string;
+  description: string;
+  jwPlayerId: string;
+  image: string;
+}
 
 @Injectable({ providedIn: 'root' })
 export class ERC1155 extends Contract {
-  constructor(metamask: MetamaskService) {
-    if (!metamask.signer) throw new Error('ERC1155 requires a signer');
+  metamask: MetamaskService
+
+  constructor(metamask: MetamaskService, private db: AngularFireDatabase) {
     super(env.eth.erc1155, abi, metamask.signer);
+    if (!metamask.signer) throw new Error('ERC1155 requires a signer');
+    this.metamask = metamask;
   }
 
   async getTokens(account: string): Promise<ERC1155_Token[]> {
@@ -76,5 +88,29 @@ export class ERC1155 extends Contract {
    */
   uri(id: number): Promise<string> {
     return this.functions.uri(id);
+  }
+
+  /**
+   * Mint a token
+   * @param quantity the number of supply
+   */
+  async mint(quantity: number, metadata: Metadata) {
+
+    const to = await this.metamask.signer?.getAddress();
+    const id = await this.db.object('store/tokenCount').valueChanges().pipe(take(1)).toPromise() as number;
+    const token = await this.db.object(`titles/${id}`).valueChanges().pipe(take(1)).toPromise();
+    if (!!token) {
+      // its possible to add quantity to an existing NFT, for now we prevent that.
+      throw new Error('TOKEN EXISTS ALREADY');
+    }
+
+    try {
+      await this.db.object(`titles/${id - 1}`).set(metadata);
+      const tx = await this.functions.mint(to, id, quantity, []);
+      await tx.wait(1);
+      await this.db.object('store').update({ tokenCount: id + 1 });
+    } catch (err) {
+      console.error(err);
+    }
   }
 }
