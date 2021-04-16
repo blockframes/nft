@@ -1,27 +1,27 @@
 <h1>Add a new item</h1>
-<form fxLayout="column">
+<form fxLayout="column" [formGroup]="mintForm" (ngSubmit)="onSubmit()">
   <article fxLayout fxLayoutGap="16px">
     <mat-form-field appearance="outline">
       <mat-label>Name</mat-label>
-      <input matInput type="text" placeholder="Name" required>
+      <input matInput type="text" placeholder="Name" formControlName="name" required>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>External Link</mat-label>
-      <input matInput type="text" placeholder="Link" required>
+      <input matInput type="text" placeholder="Link" formControlName="externalLink" required>
     </mat-form-field>
   </article>
 
   <mat-form-field appearance="outline">
     <mat-label>Description</mat-label>
-    <textarea matInput type="text" placeholder="Description" required></textarea>
+    <textarea matInput type="text" placeholder="Description" formControlName="description"></textarea>
   </mat-form-field>
 
-  <article fxLayout="column" fxLayoutGap="16px">
+  <article fxLayout="column" fxLayoutGap="16px" formGroupName="metadata">
     <h4>Others Informations</h4>
     <mat-form-field appearance="outline">
       <mat-label>Running Time</mat-label>
-      <input matInput type="number" placeholder="Running Time" required>
+      <input matInput type="number" placeholder="Running Time" formControlName="runningTime" required>
       <mat-hint>In minutes</mat-hint>
     </mat-form-field>
 
@@ -30,8 +30,10 @@
       <mat-chip-list #countryList aria-label="countries">
         <mat-chip *ngFor="let country of countries" selectable removable (removed)="remove(country)">{{ country }}</mat-chip>
         <input placeholder="Countries" [matChipInputFor]="countryList" [matChipInputSeparatorKeyCodes]="separatorKeyCodes"
-        matChipInputAddOnBlur (matChipInputTokenEnd)="add($event)">
+        matChipInputAddOnBlur (matChipInputTokenEnd)="add($event)" formControlName="countries">
       </mat-chip-list>
     </mat-form-field>
   </article>
+
+  <button mat-flat-button color="primary" type="submit">Submit</button>
 </form>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 
@@ -9,8 +10,21 @@ import { MatChipInputEvent } from '@angular/material/chips';
 })
 export class MintComponent {
   countries: string[] = [];
-  readonly separatorKeyCodes = [ENTER, COMMA]
+  readonly separatorKeyCodes = [ENTER, COMMA];
 
+  public mintForm = new FormGroup({
+    name: new FormControl(''),
+    externalLink: new FormControl(''),
+    description: new FormControl(''),
+    metadata: new FormGroup({
+      runningTime: new FormControl(null),
+      countries: new FormControl()
+    })
+  });
+
+  onSubmit() {
+    console.log(this.mintForm);
+  }
 
   // CHIPS LOGIC
   add(event: MatChipInputEvent) {
