@@ -6,3 +6,5 @@ export * from './lib/guard/nowallet.guard';
 // Pages
 export * from './lib/page/signin/signin.module'
 export * from './lib/page/account/account.module'
+// Components
+export * from './lib/component/choose-network/choose-network.module'

@@ -13,6 +13,7 @@ const FIREBASE_EMUTLATORS = env.useEmulators ? [
 import { AppComponent } from './app.component';
 import env from '@nft/env';
 import { UiModule } from '@nft/ui';
+import { NetworkModule } from '@nft/metamask';
 import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
@@ -24,7 +25,8 @@ import { AppRoutingModule } from './app-routing.module';
     AngularFireModule.initializeApp(env.firebase),
     AngularFirestoreModule,
     AngularFireFunctionsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NetworkModule,
   ],
   providers: [...FIREBASE_EMUTLATORS],
   bootstrap: [AppComponent],

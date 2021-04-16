@@ -5,6 +5,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule, USE_EMULATOR as USE_FIRESTORE_EMULATOR } from '@angular/fire/firestore';
 import { AngularFireFunctionsModule, USE_EMULATOR as USE_FUNCTION_EMULATOR } from '@angular/fire/functions';
 import { UiModule } from '@nft/ui';
+import { NetworkModule } from '@nft/metamask';
 
 // Specific config for emulators
 const FIREBASE_EMUTLATORS = env.useEmulators ? [
@@ -25,7 +26,8 @@ import env from '@nft/env';
     AngularFirestoreModule,
     AngularFireFunctionsModule,
     AppRoutingModule,
-    UiModule
+    UiModule,
+    NetworkModule,
   ],
   providers: [...FIREBASE_EMUTLATORS],
   bootstrap: [AppComponent],
