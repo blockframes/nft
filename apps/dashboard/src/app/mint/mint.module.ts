@@ -1,11 +1,28 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MintComponent } from './mint.component';
-import { RouterModule } from '@angular/router'
+
+// MATERIALS
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [MintComponent],
-  imports: [RouterModule.forChild([{ path: '', component: MintComponent }])],
-  providers: [],
-  bootstrap: [MintComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FlexLayoutModule,
+    // MATERIALS
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatChipsModule,
+    RouterModule.forChild([{ path: '', component: MintComponent }])
+  ]
 })
 export class MintModule { }
