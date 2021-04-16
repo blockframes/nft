@@ -5,12 +5,22 @@ import { EthereumWalletGuard, NoEthereumWalletGuard } from '@nft/metamask';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'mint',
+    redirectTo: 'account',
     pathMatch: 'full'
   },
   {
     path: 'mint',
     loadChildren: () => import('./mint/mint.module').then(m => m.MintModule)
+  },
+  {
+    path: 'signin',
+    canActivate: [NoEthereumWalletGuard],
+    loadChildren: () => import('@nft/metamask').then(m => m.SigninModule)
+  },
+  {
+    path: 'account',
+    canActivate: [EthereumWalletGuard],
+    loadChildren: () => import('./tokens/tokens.module').then(m => m.TokensModule)
   },
 ];
 
