@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router'
+import { RouterModule } from '@angular/router';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MintComponent } from './mint.component';
 
@@ -15,6 +16,7 @@ import { MatChipsModule } from '@angular/material/chips';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FlexLayoutModule,
     // MATERIALS
     MatFormFieldModule,
     MatInputModule,
