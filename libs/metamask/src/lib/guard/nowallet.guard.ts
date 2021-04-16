@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CanActivate, Router, UrlTree } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { MetamaskService } from '../+state/metamask.service';
 import { networkCheck } from './guard.helpers';
 
@@ -14,10 +16,8 @@ export class NoEthereumWalletGuard implements CanActivate {
     private dialog: MatDialog,
   ) { }
 
-  async canActivate(): Promise<boolean | UrlTree> {
-    await networkCheck(this.dialog, this.service);
-    return this.service.hasAccount()
-      .then(hasAccount => !hasAccount || this.router.parseUrl('/'))
-      .catch(_ => this.router.parseUrl('/'));
+  canActivate(): Observable<boolean | UrlTree> {
+    networkCheck(this.dialog, this.service);
+    return this.service.account$.pipe(map(account => !account ? true : this.router.parseUrl('/')))
   }
 }

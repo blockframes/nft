@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { MetamaskService } from 'libs/metamask/src/lib/+state/metamask.service';
 
 @Component({
@@ -8,14 +9,15 @@ import { MetamaskService } from 'libs/metamask/src/lib/+state/metamask.service';
 })
 export class HeaderComponent {
 
-  public loggedIn!: string;
-
   constructor(
     public metamaskService: MetamaskService,
-    private cdr: ChangeDetectorRef
+    private router: Router
   ) { }
+
   async connect() {
-    this.loggedIn = await this.metamaskService.requestAccount();
-    this.cdr.markForCheck();
+    const account = await this.metamaskService.requestAccount();
+    if (!!account && this.router.url.includes('signin')) {
+      this.router.navigate(['/']);
+    }
   }
 }

@@ -4,7 +4,7 @@
     <div>
       <a mat-button routerLink="marketplace"> Marketplace </a>
       <a mat-button routerLink="account"> My NFTs </a>
-      <a mat-button (click)="connect()">{{ loggedIn ? 'Connected': 'Connect' }}</a>
+      <a mat-button (click)="connect()">{{ !!(metamaskService.account$ | async) ? 'Connected': 'Connect' }}</a>
       <img class="logo" alt="MetaMaskLogo" src="/assets/images/metamask.png">
     </div>
   </mat-toolbar-row>
