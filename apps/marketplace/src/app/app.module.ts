@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule, USE_EMULATOR as USE_FIRESTORE_EMULATOR } from '@angular/fire/firestore';
+import { USE_EMULATOR as USE_FIRESTORE_EMULATOR } from '@angular/fire/firestore';
 import { AngularFireFunctionsModule } from '@angular/fire/functions';
 
 // Specific config for emulators
@@ -15,6 +15,7 @@ import env from '@nft/env';
 import { UiModule } from '@nft/ui';
 import { NetworkModule } from '@nft/metamask';
 import { AppRoutingModule } from './app-routing.module';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,7 +24,7 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(env.firebase),
-    AngularFirestoreModule,
+    AngularFireDatabaseModule,
     AngularFireFunctionsModule,
     AppRoutingModule,
     NetworkModule,

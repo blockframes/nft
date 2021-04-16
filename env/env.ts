@@ -2,6 +2,7 @@ export default {
   production: false,
   useEmulators: false,
   firebase: {
+    databaseURL: "https://c8-nft-default-rtdb.europe-west1.firebasedatabase.app",
     apiKey: "AIzaSyC7qxBPbKybyWgEMfqDjYvM_lOmDeiAs9E",
     authDomain: "c8-nft.firebaseapp.com",
     projectId: "c8-nft",
