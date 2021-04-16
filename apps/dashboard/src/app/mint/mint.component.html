@@ -1,1 +1,33 @@
-<h1>Mint me</h1>
+<h1>Add a new item</h1>
+<form>
+  <mat-form-field appearance="outline">
+    <mat-label>Name</mat-label>
+    <input matInput type="text" placeholder="Name" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>External Link</mat-label>
+    <input matInput type="text" placeholder="Link" required>
+  </mat-form-field>
+
+  <!-- <mat-form-field appearance="outline">
+    <mat-label>Description</mat-label>
+    <textarea matInput type="text" placeholder="Description" required>
+  </mat-form-field> -->
+
+  <h4>Others Informations</h4>
+  <mat-form-field appearance="outline">
+    <mat-label>Running Time</mat-label>
+    <input matInput type="number" placeholder="Running Time" required>
+    <mat-hint>In minutes</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Countries</mat-label>
+    <mat-chip-list #countryList aria-label="countries">
+      <mat-chip *ngFor="let country of countries" selectable removable (removed)="remove(country)">{{ country }}</mat-chip>
+      <input placeholder="Countries" [matChipInputFor]="countryList" [matChipInputSeparatorKeyCodes]="separatorKeyCodes"
+      matChipInputAddOnBlur (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+  </mat-form-field>
+</form>
