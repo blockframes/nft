@@ -19,6 +19,8 @@
     "functions": { "tags": [] },
     "metamask": { "tags": [] },
     "ui": { "tags": [] },
-    "model": { "tags": [] }
+    "model": { "tags": [] },
+    "dashboard": { "tags": [] },
+    "dashboard-e2e": { "tags": [], "implicitDependencies": ["dashboard"] }
   }
 }
