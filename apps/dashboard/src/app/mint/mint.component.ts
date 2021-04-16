@@ -23,7 +23,6 @@ export class MintComponent {
   });
 
   onSubmit() {
-    console.log(this.mintForm);
   }
 
   get countries() {
@@ -33,7 +32,6 @@ export class MintComponent {
   // CHIPS LOGIC
   add(event: MatChipInputEvent) {
     this.countries.push(new FormControl(event.value));
-    event.value = '';
     event.input.value = '';
   }
 
