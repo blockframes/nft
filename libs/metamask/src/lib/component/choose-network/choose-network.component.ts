@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import env from '@nft/env';
-import { MetamaskService } from '@nft/metamask';
+import { MetamaskService } from '../../+state/metamask.service';
 
 @Component({
   selector: 'nft-choose-network',
