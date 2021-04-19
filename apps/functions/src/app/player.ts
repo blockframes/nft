@@ -72,7 +72,7 @@ export const checkSignature = async (data: SignedMessage, context: https.Callabl
     }
   }
 
-  const resource = `/v2/media/${meta.jwPlayerId}/drm/RYP9GrKb`;
+  const resource = `/v2/media/${meta.jwPlayerId}/drm/lDDldMGd`;
 
   const jwt = sign({
     resource,

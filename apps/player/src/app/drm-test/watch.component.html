@@ -1,0 +1,18 @@
+
+<form [formGroup]="form">
+  <mat-form-field appearance="outline">
+    <mat-label>Player URL</mat-label>
+    <input matInput placeholder="https://exemple.com" formControlName="playerUrl">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Video URL</mat-label>
+    <input matInput placeholder="https://exemple.com" formControlName="videoUrl">
+  </mat-form-field>
+  <button mat-button (click)="watch()">Watch</button>
+</form>
+
+<ng-container *ngIf="playerUrl$ | async as playerUrl">
+  <ng-container *ngIf="videoUrl$ | async as videoUrl">
+    <jwplayer [src]="playerUrl" [video]="videoUrl" [id]="thumbnailId"></jwplayer>
+  </ng-container>
+</ng-container>
