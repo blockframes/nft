@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
-import { SETTINGS } from '@angular/fire/firestore';
 import { USE_EMULATOR as USE_FIRESTORE_EMULATOR } from '@angular/fire/firestore';
 
 import { BackendService } from './backend.service';
@@ -15,6 +14,7 @@ const FIREBASE_EMULATORS = [{
 
 describe('BackendService', () => {
   let service: BackendService;
+  let createdKey: string;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -31,9 +31,11 @@ describe('BackendService', () => {
     service = TestBed.inject(BackendService);
   });
 
-  it('should be created', async () => {
+  it('service should be created', async () => {
     expect(service).toBeTruthy();
+  });
 
+  it('title should be created', async () => {
     //Write to db
     const title:Title = {
       attributes: {'key': "fr"},
@@ -43,6 +45,14 @@ describe('BackendService', () => {
       description: 'A NFT!'
     }
     let ret = await service.create(title);
+    createdKey = ret.key;
+    console.log(createdKey);
+  });
+
+  it('title can be read', async () => {
+    createdKey = '-MYee_UCsQZ5uPuoi0Rn';
+    let ret = await service.getTitle(createdKey);
     console.log(ret);
   });
+
 });

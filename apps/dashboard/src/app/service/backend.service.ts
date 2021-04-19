@@ -19,6 +19,14 @@ export class BackendService {
     return this.titlesRef;
   }
 
+  async getTitle(id: string): Promise<any> {
+    const doc = this.dbPath + '/' + id;
+    console.log(doc);
+    const title =  await this.db.object(doc)
+                       .valueChanges().toPromise();
+    return title;
+  }
+
   create(title: Title): any {
     return this.titlesRef.push(title);
   }
