@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
+import { ERC1155 } from '@nft/metamask';
 
 @Component({
   selector: 'nft-mint',
@@ -16,17 +17,21 @@ export class MintComponent {
     image: new FormControl('', Validators.required),
     jwPlayerId: new FormControl(''),
     description: new FormControl(''),
+    quantity: new FormControl(1),
     metadata: new FormGroup({
       runningTime: new FormControl(null, Validators.required),
       countries: new FormArray([])
     })
   });
 
-  onSubmit() {
+  constructor(private erc1155: ERC1155) {}
+
+  async onSubmit() {
+    await this.erc1155.mint(this.mintForm.get('quantity')!.value, this.mintForm.value)
   }
 
   get countries() {
-    return this.mintForm.controls.metadata.get('countries') as FormArray;
+    return this.mintForm.get('metadata')!.get('countries') as FormArray;
   }
 
   // CHIPS LOGIC

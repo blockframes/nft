@@ -9,7 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { UiModule } from '@nft/ui';
 import { NetworkModule } from '@nft/metamask';
 import { USE_EMULATOR as USE_FIRESTORE_EMULATOR } from '@angular/fire/firestore';
-import { environment } from '../environments/environment';
+import environment from '../environments/environment';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 
