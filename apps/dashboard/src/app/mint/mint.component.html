@@ -7,6 +7,11 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline">
+      <mat-label>Quantity</mat-label>
+      <textarea matInput type="number" placeholder="Quantity" formControlName="quantity"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
       <mat-label>JW Player ID</mat-label>
       <input matInput type="text" placeholder="Link" formControlName="jwPlayerId" required>
     </mat-form-field>
@@ -33,9 +38,11 @@
     <mat-form-field appearance="outline" formArrayName="countries">
       <mat-label>Countries</mat-label>
       <mat-chip-list #countryList aria-label="countries">
-        <mat-chip *ngFor="let country of countries.controls, let i = index" selectable removable (removed)="remove(i)">{{ country.value }}</mat-chip>
-        <input placeholder="Countries" [matChipInputFor]="countryList" [matChipInputSeparatorKeyCodes]="separatorKeyCodes"
-        matChipInputAddOnBlur (matChipInputTokenEnd)="add($event)" formControlName="countries">
+        <mat-chip *ngFor="let country of countries.controls, let i = index" selectable removable (removed)="remove(i)">
+          {{ country.value }}
+        </mat-chip>
+        <input placeholder="Countries" [matChipInputFor]="countryList"
+          [matChipInputSeparatorKeyCodes]="separatorKeyCodes" matChipInputAddOnBlur (matChipInputTokenEnd)="add($event)">
       </mat-chip-list>
     </mat-form-field>
   </article>

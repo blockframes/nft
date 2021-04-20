@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import type { Observable } from 'rxjs';
-
-import { Title } from '../../models/title';
+import { Title } from '@nft/model/title'
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +11,7 @@ export class BackendService {
 
   titlesRef: AngularFireList<Title>;
 
-  constructor(private db: AngularFireDatabase) { 
+  constructor(private db: AngularFireDatabase) {
     this.titlesRef = db.list(this.dbPath);
   }
 
