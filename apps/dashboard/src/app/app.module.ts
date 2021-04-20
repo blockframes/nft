@@ -16,8 +16,6 @@ const FIREBASE_EMUTLATORS = environment.useEmulators ? [
   { provide: USE_FIRESTORE_EMULATOR, useValue: ['localhost', 9000] },
 ] : [];
 
-import { BackendService } from './service/backend.service';
-
 @NgModule({
   declarations: [AppComponent],
   imports: [
