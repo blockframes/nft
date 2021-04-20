@@ -27,7 +27,7 @@ export class ERC1155 extends Contract {
   async getTokens(account: string): Promise<ERC1155_Token[]> {
     const ids = await this.getTokenIds(account);
     const promises = ids.map(async (id: number) => {
-      const [ balance, meta ] = await Promise.all([
+      const [balance, meta] = await Promise.all([
         this.balanceOf(account, id),
         this.getMeta(id)
       ]);
@@ -103,15 +103,16 @@ export class ERC1155 extends Contract {
   async mint(quantity: number, metadata: Metadata) {
 
     const to = await this.metamask.signer?.getAddress();
-    const id = await this.db.object('store/tokenCount').valueChanges().pipe(take(1)).toPromise() as number;
-    const token = await this.db.object(`titles/${id}`).valueChanges().pipe(take(1)).toPromise();
+    const id = await this.db.object('store/tokenCount').valueChanges().pipe(take(1)).toPromise() as string;
+    const token = await this.db.object(`titles/${parseInt(id) + 1}`).valueChanges().pipe(take(1)).toPromise();
+    console.log(token)
     if (!!token) {
       // its possible to add quantity to an existing NFT, for now we prevent that.
       throw new Error('TOKEN EXISTS ALREADY');
     }
 
     try {
-      await this.db.object(`titles/${id - 1}`).set(metadata);
+      await this.db.object(`titles/${parseInt(id) - 1}`).set(metadata);
       const tx = await this.functions.mint(to, id, quantity, []);
       await tx.wait(1);
       await this.db.object('store').update({ tokenCount: id + 1 });
