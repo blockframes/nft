@@ -2,10 +2,7 @@
   <mat-toolbar-row>
     <a mat-button routerLink="landing">Home</a>
     <div>
-      <a mat-button routerLink="marketplace"> Marketplace </a>
-      <a mat-button routerLink="account"> My NFTs </a>
-      <a mat-button (click)="connect()">{{ !!(metamaskService.account$ | async) ? 'Connected': 'Connect' }}</a>
-      <img class="logo" alt="MetaMaskLogo" src="/assets/images/metamask.png">
+      <ng-content></ng-content>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>

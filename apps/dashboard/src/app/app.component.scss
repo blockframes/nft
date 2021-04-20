@@ -3,3 +3,25 @@
   flex-direction: column;
   height: 100vh;
 }
+mat-toolbar-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+img.logo {
+  width: 24px;
+  margin-top: 6px;
+  margin-left: 4px;
+  float: right;
+}
+
+.connected {
+  font-size: 16px;
+  color: rgb(12, 236, 31);
+  margin-right: 8px;
+}
+
+.disconnected {
+  font-size: 16px;
+  margin-right: 8px;
+}
