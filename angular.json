@@ -56,7 +56,9 @@
                 "output": "./assets"
               }
             ],
-            "styles": ["apps/marketplace/src/styles.scss"],
+            "styles": [
+              "apps/marketplace/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -117,7 +119,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/marketplace"],
+          "outputs": [
+            "coverage/apps/marketplace"
+          ],
           "options": {
             "jestConfig": "apps/marketplace/jest.config.js",
             "passWithNoTests": true
@@ -150,7 +154,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/marketplace-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/marketplace-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
@@ -178,7 +184,9 @@
                 "output": "./assets"
               }
             ],
-            "styles": ["apps/player/src/styles.scss"],
+            "styles": [
+              "apps/player/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -239,7 +247,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/player"],
+          "outputs": [
+            "coverage/apps/player"
+          ],
           "options": {
             "jestConfig": "apps/player/jest.config.js",
             "passWithNoTests": true
@@ -268,7 +278,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/player-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/player-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
@@ -280,7 +292,9 @@
       "architect": {
         "build": {
           "builder": "@nrwl/node:build",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/apps/functions",
             "main": "apps/functions/src/main.ts",
@@ -313,12 +327,16 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/functions/**/*.ts"]
+            "lintFilePatterns": [
+              "apps/functions/**/*.ts"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/functions"],
+          "outputs": [
+            "coverage/apps/functions"
+          ],
           "options": {
             "jestConfig": "apps/functions/jest.config.js",
             "passWithNoTests": true
@@ -343,7 +361,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/metamask"],
+          "outputs": [
+            "coverage/libs/metamask"
+          ],
           "options": {
             "jestConfig": "libs/metamask/jest.config.js",
             "passWithNoTests": true
@@ -360,12 +380,17 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/ui/src/**/*.ts", "libs/ui/src/**/*.html"]
+            "lintFilePatterns": [
+              "libs/ui/src/**/*.ts",
+              "libs/ui/src/**/*.html"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/ui"],
+          "outputs": [
+            "coverage/libs/ui"
+          ],
           "options": {
             "jestConfig": "libs/ui/jest.config.js",
             "passWithNoTests": true
@@ -390,7 +415,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/model"],
+          "outputs": [
+            "coverage/libs/model"
+          ],
           "options": {
             "jestConfig": "libs/model/jest.config.js",
             "passWithNoTests": true
@@ -415,9 +442,15 @@
             "aot": true,
             "assets": [
               "apps/dashboard/src/favicon.ico",
-              "apps/dashboard/src/assets"
+              {
+                "glob": "**/*",
+                "input": "./assets",
+                "output": "./assets"
+              }
             ],
-            "styles": ["apps/dashboard/src/styles.scss"],
+            "styles": [
+              "apps/dashboard/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -478,7 +511,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/dashboard"],
+          "outputs": [
+            "coverage/apps/dashboard"
+          ],
           "options": {
             "jestConfig": "apps/dashboard/jest.config.js",
             "passWithNoTests": true
@@ -507,7 +542,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/dashboard-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/dashboard-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }

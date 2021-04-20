@@ -10,6 +10,8 @@ import { UiModule } from '@nft/ui';
 import { NetworkModule } from '@nft/metamask';
 import { USE_EMULATOR as USE_FIRESTORE_EMULATOR } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
 
 // Specific config for emulators
 const FIREBASE_EMUTLATORS = environment.useEmulators ? [
@@ -25,7 +27,9 @@ const FIREBASE_EMUTLATORS = environment.useEmulators ? [
     AngularFireDatabaseModule,
     AppRoutingModule,
     UiModule,
-    NetworkModule
+    NetworkModule,
+    MatToolbarModule,
+    MatButtonModule
   ],
   providers: [...FIREBASE_EMUTLATORS],
   bootstrap: [AppComponent],
