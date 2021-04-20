@@ -8,6 +8,7 @@
     }
   },
   "projects": {
-    "c8-nft": "c8-nft"
+    "c8-nft": "c8-nft",
+    "default": "c8-nft"
   }
 }
