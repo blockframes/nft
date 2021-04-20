@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
+import type { Observable } from 'rxjs';
 
 import { Title } from '../../models/title';
 
@@ -19,12 +20,10 @@ export class BackendService {
     return this.titlesRef;
   }
 
-  async getTitle(id: string): Promise<any> {
+  getTitle(id: string): Observable<any> {
+    // TODO read seems to not work
     const doc = this.dbPath + '/' + id;
-    console.log(doc);
-    const title =  await this.db.object(doc)
-                       .valueChanges().toPromise();
-    return title;
+    return this.db.object(doc).valueChanges()
   }
 
   create(title: Title): any {
@@ -42,5 +41,4 @@ export class BackendService {
   deleteAll(): Promise<void> {
     return this.titlesRef.remove();
   }
-
 }
