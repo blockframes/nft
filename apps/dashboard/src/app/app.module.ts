@@ -22,8 +22,12 @@ import { BackendService } from './service/backend.service';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    AppRoutingModule,
+    UiModule,
+    NetworkModule
   ],
   providers: [...FIREBASE_EMUTLATORS],
   bootstrap: [AppComponent],
