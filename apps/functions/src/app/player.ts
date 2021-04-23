@@ -1,5 +1,5 @@
 
-import { utils, getDefaultProvider, Contract } from 'ethers';
+import { utils, getDefaultProvider, Contract, BigNumber } from 'ethers';
 
 import { sign } from 'jsonwebtoken';
 import { createHash } from 'crypto';
@@ -9,6 +9,7 @@ import { logger, https, config } from 'firebase-functions';
 import env from '@nft/env';
 import * as abi from '@nft/model/erc1155.json';
 import { ERC1155_Meta, SignedMessage, PlayerResponse, TokenLimit } from '@nft/model';
+import { id } from '@ethersproject/hash';
 
 // This variable define the duration (in seconds) of a video link before it expires
 export const linkDuration = 60 * 60 * 5; // 5 hours in seconds = 60 seconds * 60 minutes * 5 = 18 000 seconds
@@ -28,7 +29,8 @@ export const checkSignature = async (data: SignedMessage, context: https.Callabl
   const jwplayerSecret = config().jwplayer?.secret;
 
   if (!jwplayerSecret) {
-    throw new https.HttpsError('failed-precondition', `jwplayer.secret env variable hasn't been set ! Check functions config in CLI with 'firebase functions:config:get'!`);
+    logger.error(`JWP CONFIG NOT SET: jwplayer.secret env variable hasn't been set ! Check functions config in CLI with 'firebase functions:config:get'!`);
+    throw new https.HttpsError('internal', `Sorry something !`);
   }
 
   // ------------------------------
@@ -43,12 +45,12 @@ export const checkSignature = async (data: SignedMessage, context: https.Callabl
 
   const playerUrl = `https://cdn.jwplayer.com/libraries/3sZQvkmL.js?exp=${expires}&sig=${playerSignature}`;
 
+
   // ------------------------------
   // VERIFY OWNERSHIP OF THE TOKEN
 
   const { message, signature, tokenId } = data;
   const ethAddress = utils.verifyMessage(message, signature);
-  logger.log(`Ethereum address : ${ethAddress}`, `Token Id: ${tokenId}`);
 
   const provider = getDefaultProvider(env.eth.network);
   const contract = new Contract(env.eth.erc1155, abi, provider);
@@ -58,6 +60,26 @@ export const checkSignature = async (data: SignedMessage, context: https.Callabl
   const amount: number = balance.toNumber();
   if (amount === 0) {
     throw new https.HttpsError('permission-denied', `${ethAddress} does not own token : ${tokenId}`);
+  }
+
+
+  // ------------------------------
+  // VERIFY TOKEN SALES CONDITIONS
+
+  const erc1155 = new Contract(env.eth.erc1155, abi, provider);
+  const filter = erc1155.filters.TransferSingle(null, null, ethAddress);
+  const events = await erc1155.queryFilter(filter);
+  const transferEvent = events.find(event => (event.args!.id as BigNumber).toNumber() === tokenId);
+  const tx = await transferEvent?.getTransactionReceipt();
+
+  // if the token has been sold through OpenSea the transaction should contain an
+  // `OrdersMatch` event from the OpenSea crowd sales contract
+  const ordersMatchTopic = id('OrdersMatched(bytes32,bytes32,address,address,uint256,bytes32)');
+  const containOrderMatch = tx?.logs.some(log => log.topics[0] === ordersMatchTopic);
+
+  if (!containOrderMatch) {
+    logger.error(`ILLEGAL TOKEN OWNERSHIP: owner: ${ethAddress}, token id: ${tokenId}, tx hash: ${tx?.transactionHash}`);
+    throw new https.HttpsError('permission-denied', `You (${ethAddress}) are the owner of the token (${tokenId}) but it seems that it has been acquired in an illegal way!`);
   }
 
 
@@ -82,6 +104,7 @@ export const checkSignature = async (data: SignedMessage, context: https.Callabl
       await limitsRef.set(limits);
     }
   }
+
 
   // ------------------------------
   // RETRIEVE TOKEN METADATA
@@ -110,6 +133,7 @@ export const checkSignature = async (data: SignedMessage, context: https.Callabl
     }
   }
 
+
   // ------------------------------
   // COMPUTE VIDEO URL
 
@@ -121,6 +145,7 @@ export const checkSignature = async (data: SignedMessage, context: https.Callabl
   }, jwplayerSecret);
 
   const videoUrl = `https://cdn.jwplayer.com${resource}?token=${jwt}`;
+
 
   // ------------------------------
   // RETURN NEEDED DATA
