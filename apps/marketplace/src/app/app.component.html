@@ -1,8 +1,7 @@
 <nft-header>
-  <a mat-button routerLink="marketplace"> Marketplace </a>
-  <a mat-button routerLink="account"> My NFTs </a>
-  <a mat-button (click)="connect()">{{ !!(metamaskService.account$ | async) ? 'Connected': 'Connect' }}</a>
-  <img class="logo" alt="MetaMaskLogo" src="/assets/images/metamask.png">
+  <a mat-button routerLink="marketplace" class="courrier-font"> marketplace </a>
+  <a mat-button routerLink="account" class="courrier-font"> My NFTs </a>
+  <a mat-button (click)="connect()" class="courrier-font">{{ !!(metamaskService.account$ | async) ? 'connected': 'connect' }}</a>
 </nft-header>
 <router-outlet></router-outlet>
 <nft-footer></nft-footer>

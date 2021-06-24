@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire';
 import { USE_EMULATOR as USE_FIRESTORE_EMULATOR } from '@angular/fire/firestore';
 import { AngularFireFunctionsModule } from '@angular/fire/functions';
+import { MatButtonModule } from '@angular/material/button';
 
 // Specific config for emulators
 const FIREBASE_EMUTLATORS = env.useEmulators ? [
@@ -28,6 +29,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
     AngularFireFunctionsModule,
     AppRoutingModule,
     NetworkModule,
+    MatButtonModule
   ],
   providers: [...FIREBASE_EMUTLATORS],
   bootstrap: [AppComponent],

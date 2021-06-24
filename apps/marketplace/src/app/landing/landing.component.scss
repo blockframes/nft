@@ -1,32 +1,49 @@
 :host {
-  display: block;
+  display: flex;
   height: 100%;
-	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-	background-size: 400% 400%;
-	animation: gradient 15s ease infinite;
+  align-items: center;
+  justify-content: center;
+  background-color: #0C031C;
+	background-image: url('../../../../../assets/images/super-awesome-big-icons.png'), url('../../../../../assets/images/super-awesome-little-icons.png');
+	background-position: 0 0;
+	background-size: 175%, 100%;
+	animation: 400s para infinite linear;
 }
 
-@keyframes gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
-}
+mat-card {
+  padding: 50px;
+  max-width: 700px;
+  text-align: center;
+  background: rgba(#0C031C, 0.8);
+  color: white;
 
-section {
-  height: 100%;
-
-  mat-card {
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
-
-    h1 {
-      color: white;
-    }
+  h1 {
+    margin-bottom: 10px;
   }
+
+  h4 {
+    margin-bottom: 50px;
+    font-weight: bold;
+  }
+
+  p {
+    font-weight: bold;
+  }
+
+  button {
+    background-color: rgb(161 86 219);
+    color: #FFF;
+    margin-top: 50px;
+    border-radius: 50px;
+  }
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+@keyframes para {
+	100% {
+		background-position: -5000px 2000px, 2000px 0;
+	}
 }

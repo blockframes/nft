@@ -1,24 +1,14 @@
+.mat-toolbar {
+  background: #0C031C;
+  color: #FFF;
+  border-bottom: 5px solid rgba(#0C031C, 0.95);
+}
+
 mat-toolbar-row {
-  display: flex;
   justify-content: space-between;
 }
 
-img.logo {
-    width: 24px;
-    margin-top: 6px;
-    margin-left: 4px;
-    float: right;
-  }
-
-
-
-.connected {
-  font-size: 16px;
-  color: rgb(12, 236, 31);
-  margin-right: 8px;
-}
-
-.disconnected {
-  font-size: 16px;
-  margin-right: 8px;
+img {
+  margin-left: 30px;
+  height: 24px;
 }
