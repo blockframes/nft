@@ -30,11 +30,19 @@ mat-card {
     font-weight: bold;
   }
 
-  button {
+  span {
+    margin-right: 8px;
+  }
+
+  a {
     background-color: rgb(161 86 219);
     color: #FFF;
     margin-top: 50px;
     border-radius: 50px;
+    &.mat-flat-button {
+      font-size: 16px;
+      padding: 8px 20px;
+    }
   }
 }
 
@@ -42,8 +50,35 @@ mat-card {
   text-transform: uppercase;
 }
 
+i {
+  position: absolute;
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 10px;
+  background: rgb(161 86 219);
+  opacity: 0;
+}
+
+.hover:hover {
+  @for $i from 1 through 10 {
+    i:nth-of-type(#{$i}) {
+      transform: translate3d(random(190) - 100 + px,random(50) - 100 + px,0) rotate(random(360) + deg);
+      animation: bang 1000ms ease-out forwards;
+      opacity: 0;
+    }
+  }
+}
+
 @keyframes para {
 	100% {
 		background-position: -5000px 2000px, 2000px 0;
 	}
+}
+
+@keyframes bang {
+  from {
+    transform: translate3d(0,0,0);
+    opacity: 1;
+  }
 }

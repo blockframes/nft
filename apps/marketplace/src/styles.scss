@@ -27,7 +27,7 @@ $nft-typography: mat-typography-config(
   $font-family: 'Montserrat, Helvetica Neue, sans-serif',
   $headline: mat-typography-level(64px, 65px, 900, $letter-spacing: -0.5px),
   $title: mat-typography-level(24px, 36px, 500, $letter-spacing: -1px),
-  $subheading-1: mat-typography-level(18px, 20.7px, 700, $letter-spacing: 4px),
+  $subheading-1: mat-typography-level(18px, 20.7px, 700, $letter-spacing: 0),
   $body-1: mat-typography-level(16px, 18.4px, 400, $letter-spacing: 0.5px),
   $body-2: mat-typography-level(14px, 16.1px, 400, $letter-spacing: 0.5px),
 );
