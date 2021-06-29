@@ -14,5 +14,9 @@ export default {
   eth: {
     erc1155: '0x76f0F905C1E474376B20595279210251033b25aC',
     network: 'rinkeby',
+  },
+  appUrl: {
+    marketplace: 'http://localhost:4200',
+    player: 'http://localhost:4200'
   }
 }
