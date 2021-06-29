@@ -1,13 +1,28 @@
-<section fxLayout fxLayoutAlign="center center">
-  <mat-card>
-    <h1>🔥🔥 Welcome to the NFT Movie Ticket Marketplace! 🔥🔥</h1>
-    How it works:
-    <ul>
-      <li>Log in to MetaMask</li>
-      <li>Go to Marketplace and buy tickets</li>
-      <li>Watch a movie only you can see</li>
-      <li>Resell your ticket </li>
-    </ul>
-    <p>This website is made with <span style="color: red">♥</span> by the best team 💪</p>    
-  </mat-card>
-</section>
+<mat-card>
+  <h1>Welcome to<br>FilmSeriesNFT</h1>
+  <h4 class="courrier-font">The first NFT marketplace for films and TV series</h4>
+  <p class="courrier-font">What can you buy here?</p>
+  <div fxLayout fxLayoutAlign="space-around start">
+    <div fxLayout fxLayoutAlign="center center">
+      <span class="uppercase mat-body-2">VIP Tokens</span>
+      <div class="hover">
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        <mat-icon
+          matTooltip="Be the only happy owner of a virtual asset from your favorite content
+          (your favorite movie line, an iconic item from the film…)"
+        >info</mat-icon>
+      </div>
+    </div>
+    <div fxLayout fxLayoutAlign="center center">
+      <span class="uppercase mat-body-2">Premiere Tokens</span>
+      <div class="hover">
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        <mat-icon
+          matTooltip="Buy access to exclusive virtual screenings of your favorite content and
+          be part of the happy few to watch it on your territory… and re-sell it when you’re done!"
+        >info</mat-icon>
+      </div>
+    </div>
+  </div>
+  <a mat-flat-button routerLink="../marketplace" class="uppercase">Enter the marketplace</a>
+</mat-card>

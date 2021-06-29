@@ -1,32 +1,88 @@
 :host {
-  display: block;
+  display: flex;
   height: 100%;
-	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-	background-size: 400% 400%;
-	animation: gradient 15s ease infinite;
+  align-items: center;
+  justify-content: center;
+  background-color: #0C031C;
+	background-image: url('../../../../../assets/images/super-awesome-big-icons.png'), url('../../../../../assets/images/super-awesome-little-icons.png');
+	background-position: 0 0;
+	background-size: 175%, 100%;
+	animation: 400s para infinite linear;
 }
 
-@keyframes gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
-}
+mat-card {
+  padding: 50px;
+  max-width: 700px;
+  text-align: center;
+  background: rgba(#0C031C, 0.8);
+  color: white;
 
-section {
-  height: 100%;
+  h1 {
+    margin-bottom: 10px;
+  }
 
-  mat-card {
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
+  h4 {
+    margin-bottom: 50px;
+    font-weight: bold;
+  }
 
-    h1 {
-      color: white;
+  p {
+    font-weight: bold;
+  }
+
+  span {
+    margin-right: 8px;
+  }
+
+  a {
+    background-color: #A156DB;
+    color: #FFF;
+    margin-top: 50px;
+    border-radius: 50px;
+    &.mat-flat-button {
+      font-size: 16px;
+      padding: 8px 20px;
     }
+  }
+  a:hover {
+    transition: 0.3s;
+    background-color: rgba(#A156DB, 0.9);
+  }
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+i {
+  position: absolute;
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 10px;
+  background: #A156DB;
+  opacity: 0;
+}
+
+.hover:hover {
+  @for $i from 1 through 10 {
+    i:nth-of-type(#{$i}) {
+      transform: translate3d(random(190) - 100 + px,random(50) - 100 + px,0) rotate(random(360) + deg);
+      animation: bang 1000ms ease-out forwards;
+      opacity: 0;
+    }
+  }
+}
+
+@keyframes para {
+	100% {
+		background-position: -5000px 2000px, 2000px 0;
+	}
+}
+
+@keyframes bang {
+  from {
+    transform: translate3d(0,0,0);
+    opacity: 1;
   }
 }
