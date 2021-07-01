@@ -3,7 +3,8 @@
     "c8-nft": {
       "hosting": {
         "marketplace": ["c8-nft"],
-        "player": ["c8-nft-player"]
+        "player": ["c8-nft-player"],
+        "dashboard": ["c8-nft-dashboard"]
       }
     }
   },
