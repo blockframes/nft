@@ -4,15 +4,6 @@ import { EthereumWalletGuard, NoEthereumWalletGuard } from '@nft/metamask';
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: 'landing',
-    pathMatch: 'full'
-  },
-  {
-    path: 'landing',
-    loadChildren: () => import('./landing/landing.module').then(m => m.LandingModule)
-  },
-  {
     path: 'account',
     canActivate: [EthereumWalletGuard],
     loadChildren: () => import('./my-tokens/my-tokens.module').then(m => m.MyTokensModule)
@@ -33,6 +24,10 @@ const routes: Routes = [
     path: 'signin',
     canActivate: [NoEthereumWalletGuard],
     loadChildren: () => import('@nft/metamask').then(m => m.SigninModule)
+  },
+  {
+    path: '',
+    loadChildren: () => import('./landing/landing.module').then(m => m.LandingModule)
   },
 ];
 
