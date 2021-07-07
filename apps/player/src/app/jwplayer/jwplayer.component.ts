@@ -80,7 +80,7 @@ export class JwplayerComponent {
     ).subscribe(([video, jwplayerId]) => {
       const player = jwplayer(el.nativeElement);
       player.setup({
-        playlist: video,
+        file: video,
         image: `https://cdn.jwplayer.com/thumbs/${jwplayerId}.jpg`,
       });
       player.on('ready', () => player.play());

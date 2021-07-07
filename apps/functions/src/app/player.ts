@@ -1,7 +1,6 @@
 
 import { utils, getDefaultProvider, Contract, BigNumber } from 'ethers';
 
-import { sign } from 'jsonwebtoken';
 import { createHash } from 'crypto';
 import * as admin from 'firebase-admin';
 import { logger, https, config } from 'firebase-functions';
@@ -38,12 +37,12 @@ export const checkSignature = async (data: SignedMessage, context: https.Callabl
 
   const expires = Math.floor(new Date().getTime() / 1000) + linkDuration; // now + 5 hours
 
-  const toSign = `libraries/3sZQvkmL.js:${expires}:${jwplayerSecret}`;
+  const toSign = `libraries/lpkRdflk.js:${expires}:${jwplayerSecret}`;
   const md5 = createHash('md5');
 
   const playerSignature = md5.update(toSign).digest('hex');
 
-  const playerUrl = `https://cdn.jwplayer.com/libraries/3sZQvkmL.js?exp=${expires}&sig=${playerSignature}`;
+  const playerUrl = `https://cdn.jwplayer.com/libraries/lpkRdflk.js?exp=${expires}&sig=${playerSignature}`;
 
 
   // ------------------------------
@@ -136,15 +135,11 @@ export const checkSignature = async (data: SignedMessage, context: https.Callabl
 
   // ------------------------------
   // COMPUTE VIDEO URL
+  const toSignManifest = `manifests/${meta.jwPlayerId}.m3u8:${expires}:${jwplayerSecret}`;
 
-  const resource = `/v2/media/${meta.jwPlayerId}/drm/lDDldMGd`;
-
-  const jwt = sign({
-    resource,
-    exp: expires
-  }, jwplayerSecret);
-
-  const videoUrl = `https://cdn.jwplayer.com${resource}?token=${jwt}`;
+  const hash = createHash('md5');
+  const videoSignature = hash.update(toSignManifest).digest('hex');
+  const videoUrl = `https://cdn.jwplayer.com/manifests/${meta.jwPlayerId}.m3u8?exp=${expires}&sig=${videoSignature}`;
 
 
   // ------------------------------
