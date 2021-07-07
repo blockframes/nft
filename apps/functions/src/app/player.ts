@@ -37,12 +37,12 @@ export const checkSignature = async (data: SignedMessage, context: https.Callabl
 
   const expires = Math.floor(new Date().getTime() / 1000) + linkDuration; // now + 5 hours
 
-  const toSign = `libraries/lpkRdflk.js:${expires}:${jwplayerSecret}`;
+  const toSign = `libraries/DIS3AJzu.js:${expires}:${jwplayerSecret}`;
   const md5 = createHash('md5');
 
   const playerSignature = md5.update(toSign).digest('hex');
 
-  const playerUrl = `https://cdn.jwplayer.com/libraries/lpkRdflk.js?exp=${expires}&sig=${playerSignature}`;
+  const playerUrl = `https://cdn.jwplayer.com/libraries/DIS3AJzu.js?exp=${expires}&sig=${playerSignature}`;
 
 
   // ------------------------------
