@@ -1,6 +1,5 @@
 
 import { createHash } from 'crypto';
-import * as admin from 'firebase-admin';
 import { logger, https, config } from 'firebase-functions';
 import { utils, getDefaultProvider, Contract } from 'ethers';
 
@@ -8,13 +7,12 @@ import env from '@nft/env';
 import * as abi from '@nft/model/erc1155.json';
 import { ERC1155_Meta, SignedMessage, PlayerResponse } from '@nft/model';
 
+import { db } from './internals/firebase';
+
 // This variable define the duration (in seconds) of a video link before it expires
 export const linkDuration = 60 * 60 * 5; // 5 hours in seconds = 60 seconds * 60 minutes * 5 = 18 000 seconds
 export const oneDay = 1000 * 60 * 60 * 24; // one day in milliseconds = 1000 milliseconds * 60 seconds * 60 minutes * 24 hours = 86 400 000 milliseconds
 
-/** Admin instance of the RealTime Database */
-export const app = admin.initializeApp();
-export const db = app.database();
 
 export const checkSignature = async (data: SignedMessage): Promise<PlayerResponse> => {
 
