@@ -1,7 +1,7 @@
 
+import { https } from 'firebase-functions';
 
 import { db } from './internals/firebase';
-import { https } from 'firebase-functions';
 
 export const userCountry = async (data: { address: string }, context: https.CallableContext): Promise<void> => {
 
@@ -9,11 +9,11 @@ export const userCountry = async (data: { address: string }, context: https.Call
   // as this is an analytics function, running in the background, it shouldn't throw any errors
   if (!data || !data.address || typeof data.address !== 'string') return;
 
-  const ownerRef = db.ref('owners').child(`${data.address}`);
-  const ownerSnap = await ownerRef.get();
+  const ownerCountryRef = db.ref('owners').child(`${data.address}/country`);
+  const ownerCountrySnap = await ownerCountryRef.get();
 
   // we only want to save the user's country if we don't have it already
-  if (!ownerSnap.exists()) return;
+  if (ownerCountrySnap.exists()) return;
 
 
   const req = context.rawRequest;
@@ -22,5 +22,5 @@ export const userCountry = async (data: { address: string }, context: https.Call
   // silent return without error
   if (!country || typeof country !== 'string') return;
 
-  return ownerRef.set({ country });
+  return ownerCountryRef.set(country);
 };

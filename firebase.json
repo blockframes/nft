@@ -74,7 +74,10 @@
     }
   ],
   "functions": {
-    "source": "dist/apps/functions"
+    "source": "dist/apps/functions",
+    "predeploy": [
+      "npx nx run functions:build"
+    ]
   },
   "firestore": {
     "rules": "firestore.rules",
