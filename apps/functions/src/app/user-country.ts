@@ -7,7 +7,7 @@ export const userCountry = async (data: { address: string }, context: https.Call
 
   // if the data is malformed we stop the function here
   // as this is an analytics function, running in the background, it shouldn't throw any errors
-  if (!data || !data.address || typeof data.address !== 'string') return;
+  if (!data?.address || typeof data.address !== 'string') return;
 
   const ownerCountryRef = db.ref('owners').child(`${data.address}/country`);
   const ownerCountrySnap = await ownerCountryRef.get();
