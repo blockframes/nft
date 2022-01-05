@@ -1,0 +1,18 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+
+    "store": {
+      ".read": true,
+      ".write": false
+    },
+
+    "titles": {
+      "$id": {
+        ".read": true,
+        ".write": false
+      }
+    }
+  }
+}

@@ -22,6 +22,9 @@
           "source": "**",
           "destination": "/index.html"
         }
+      ],
+      "predeploy": [
+        "npx nx run marketplace:build"
       ]
     },
     {
@@ -46,6 +49,9 @@
           "source": "**",
           "destination": "/index.html"
         }
+      ],
+      "predeploy": [
+        "npx nx run player:build"
       ]
     },
     {
@@ -70,18 +76,18 @@
           "source": "**",
           "destination": "/index.html"
         }
+      ],
+      "predeploy": [
+        "npx nx run dashboard:build"
       ]
     }
   ],
   "functions": {
     "source": "dist/apps/functions",
     "predeploy": [
-      "npx nx run functions:build"
+      "npx nx run functions:build",
+      "npm run ops:config"
     ]
-  },
-  "firestore": {
-    "rules": "firestore.rules",
-    "indexes": "firestore.indexes.json"
   },
   "storage": {
     "rules": "storage.rules"
@@ -107,5 +113,8 @@
       "host": "localhost",
       "port": 4000
     }
+  },
+  "database": {
+    "rules": "database.rules.json"
   }
 }
