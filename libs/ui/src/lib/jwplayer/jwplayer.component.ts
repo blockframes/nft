@@ -1,7 +1,8 @@
 import { DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ElementRef, Inject, Input } from '@angular/core';
-import { combineLatest, ReplaySubject } from 'rxjs';
+
 import { switchMap, take } from 'rxjs/operators';
+import { combineLatest, ReplaySubject } from 'rxjs';
 
 export async function loadJWPlayerScript(document: Document, playerUrl: string) {
   return new Promise<void>(res => {

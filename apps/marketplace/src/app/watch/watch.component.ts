@@ -1,12 +1,13 @@
 
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MetamaskService } from '@nft/metamask';
-import { AngularFireFunctions } from '@angular/fire/functions';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { PlayerResponse, SignedMessage } from '@nft/model';
-
 import { BehaviorSubject, ReplaySubject } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AngularFireFunctions } from '@angular/fire/functions';
+
+import { PlayerResponse, SignedMessage } from '@nft/model/models';
+import { MetamaskService } from '@nft/metamask/+state/metamask.service';
+
 
 @Component({
   selector: 'nft-watch',

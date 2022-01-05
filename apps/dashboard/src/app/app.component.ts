@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { MetamaskService } from '@nft/metamask';
+import { MetamaskService } from '@nft/metamask/+state/metamask.service';
 
 @Component({
   selector: 'nft-root',

@@ -10,9 +10,6 @@
         "marketplace": [
           "c8-nft"
         ],
-        "player": [
-          "c8-nft-player"
-        ],
         "dashboard": [
           "c8-nft-dashboard"
         ]
@@ -22,9 +19,6 @@
       "hosting": {
         "marketplace": [
           "nft-dev-b6c9c"
-        ],
-        "player": [
-          "nft-dev-player"
         ],
         "dashboard": [
           "nft-dev-dashboard"

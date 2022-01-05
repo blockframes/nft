@@ -1,5 +1,7 @@
+
 import { Component } from '@angular/core';
-import { ERC1155 } from '@nft/metamask';
+
+import { ERC1155 } from '@nft/metamask/+state/erc1155';
 
 @Component({
   selector: 'nft-tokens',
