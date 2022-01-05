@@ -24,34 +24,7 @@
         }
       ],
       "predeploy": [
-        "npx nx run marketplace:build"
-      ]
-    },
-    {
-      "target": "player",
-      "public": "dist/apps/player",
-      "ignore": [
-        "**/.*"
-      ],
-      "headers": [
-        {
-          "source": "*.[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f].+(css|js)",
-          "headers": [
-            {
-              "key": "Cache-Control",
-              "value": "public,max-age=300,immutable"
-            }
-          ]
-        }
-      ],
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ],
-      "predeploy": [
-        "npx nx run player:build"
+        "npm run build marketplace"
       ]
     },
     {
@@ -78,14 +51,14 @@
         }
       ],
       "predeploy": [
-        "npx nx run dashboard:build"
+        "npm run build dashboard"
       ]
     }
   ],
   "functions": {
     "source": "dist/apps/functions",
     "predeploy": [
-      "npx nx run functions:build",
+      "npm run build functions",
       "npm run ops:config"
     ]
   },

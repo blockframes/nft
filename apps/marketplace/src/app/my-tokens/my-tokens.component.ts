@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/functions';
 
-import { ERC1155 } from 'libs/metamask/src/lib/+state/erc1155';
-import { MetamaskService } from 'libs/metamask/src/lib/+state/metamask.service';
-
-import environment from '@nft/env';
-
+import { ERC1155 } from '@nft/metamask/+state/erc1155';
+import { MetamaskService } from '@nft/metamask/+state/metamask.service';
 
 @Component({
   selector: 'nft-my-tokens',
@@ -13,7 +10,6 @@ import environment from '@nft/env';
   styleUrls: ['./my-tokens.component.scss']
 })
 export class MyTokensComponent implements OnInit {
-  playerUrl = environment.appUrl.player;
   account$ = this.metamask.getAccount();
   tokens$ = this.account$.then(async account => this.erc1155.getTokens(account));
   storeUserCountry = this.functions.httpsCallable('storeUserCountry');

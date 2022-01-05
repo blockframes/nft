@@ -1,6 +1,8 @@
 ﻿import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { EthereumWalletGuard, NoEthereumWalletGuard } from '@nft/metamask';
+
+import { EthereumWalletGuard } from '@nft/metamask/guard/wallet.guard';
+import { NoEthereumWalletGuard } from '@nft/metamask/guard/nowallet.guard';
 
 const routes: Routes = [
   {
@@ -23,7 +25,12 @@ const routes: Routes = [
   {
     path: 'signin',
     canActivate: [NoEthereumWalletGuard],
-    loadChildren: () => import('@nft/metamask').then(m => m.SigninModule)
+    loadChildren: () => import('@nft/metamask/page/signin/signin.module').then(m => m.SigninModule)
+  },
+  {
+    path: 'watch/:tokenId',
+    canActivate: [EthereumWalletGuard],
+    loadChildren: () => import('./watch/watch.module').then(m => m.WatchModule)
   },
   {
     path: '',

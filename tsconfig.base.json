@@ -18,9 +18,8 @@
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
-      "@nft/metamask": ["libs/metamask/src/index.ts"],
-      "@nft/ui": ["libs/ui/src/index.ts"],
-      "@nft/model": ["libs/model/src/index.ts"],
+      "@nft/metamask/*": ["libs/metamask/src/lib/*"],
+      "@nft/ui/*": ["libs/ui/src/lib/*"],
       "@nft/model/*": ["libs/model/src/lib/*"],
       "@nft/env": ["env/env.ts"]
     }

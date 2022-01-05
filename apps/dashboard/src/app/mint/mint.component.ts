@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { ERC1155 } from '@nft/metamask';
+import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+
+import { ERC1155 } from '@nft/metamask/+state/erc1155';
 
 @Component({
   selector: 'nft-mint',
