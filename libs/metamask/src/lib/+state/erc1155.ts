@@ -4,15 +4,9 @@ import { Contract, Event, BigNumber } from 'ethers';
 import { MetamaskService } from './metamask.service';
 import env from '@nft/env';
 import abi from '@nft/model/erc1155.json';
-import { ERC1155_Meta, ERC1155_Token } from '@nft/model';
+import { ERC1155_Token } from '@nft/model/erc1155';
+import { Title } from '@nft/model/title';
 import { take } from 'rxjs/operators';
-
-interface Metadata {
-  name: string;
-  description: string;
-  jwPlayerId: string;
-  image: string;
-}
 
 @Injectable({ providedIn: 'root' })
 export class ERC1155 extends Contract {
@@ -37,13 +31,13 @@ export class ERC1155 extends Contract {
     return tokens.filter(token => token.balance);
   }
 
-  async getAllTokens(): Promise<ERC1155_Meta[]> {
+  async getAllTokens(): Promise<Title[]> {
     const ids = await this.getTokenIds();
     const promises = ids.map((id: number) => this.getMeta(id));
     return await Promise.all(promises);
   }
 
-  getMeta(id: number): Promise<ERC1155_Meta> {
+  getMeta(id: number): Promise<Title> {
     return this.uri(id)
       .then(uri => fetch(uri))
       .then(res => res.json());
@@ -100,7 +94,7 @@ export class ERC1155 extends Contract {
    * Mint a token
    * @param quantity the number of supply
    */
-  async mint(quantity: number, metadata: Metadata) {
+  async mint(quantity: number, title: Title) {
 
     const to = await this.metamask.signer?.getAddress();
     const id = await this.db.object('store/tokenCount').valueChanges().pipe(take(1)).toPromise() as string;
@@ -111,7 +105,7 @@ export class ERC1155 extends Contract {
     }
 
     try {
-      await this.db.object(`titles/${id}`).set(metadata);
+      await this.db.object(`titles/${id}`).set(title);
       const tx = await this.functions.mint(to, id, quantity, []);
       await tx.wait(1);
       await this.db.object('store').update({ tokenCount: id + 1 });

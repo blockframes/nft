@@ -5,7 +5,8 @@ import { utils, getDefaultProvider, Contract } from 'ethers';
 
 import env from '@nft/env';
 import * as abi from '@nft/model/erc1155.json';
-import { ERC1155_Meta, SignedMessage, PlayerResponse } from '@nft/model';
+import { Title } from '@nft/model/title';
+import { SignedMessage, PlayerResponse } from '@nft/model/models';
 
 import { db } from './internals/firebase';
 
@@ -69,8 +70,11 @@ export const checkSignature = async (data: SignedMessage): Promise<PlayerRespons
     logger.error(`METADATA NOT FOUND: ${ethAddress} is the legit owner of token ${tokenId}, but this token as no metadata in our RealTime DB !!!!`);
     throw new https.HttpsError('internal', `You (${ethAddress}) own this token (${tokenId}), but we haven't found its data in our servers. Please contact us!  (code: db-missing-meta)`);
   }
-  const meta: ERC1155_Meta = metaSnap.val();
+  const meta: Title = metaSnap.val();
 
+  if (!meta.jwPlayerId) {
+    throw new https.HttpsError('not-found', `This token don't have any private video! (code: no-priv-vid)`);
+  }
 
   // ------------------------------
   // COMPUTE VIDEO URL

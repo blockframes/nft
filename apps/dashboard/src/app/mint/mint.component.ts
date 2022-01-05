@@ -18,10 +18,6 @@ export class MintComponent {
     jwPlayerId: new FormControl(''),
     description: new FormControl(''),
     quantity: new FormControl(1),
-    metadata: new FormGroup({
-      runningTime: new FormControl(null, Validators.required),
-      countries: new FormArray([])
-    })
   });
 
   constructor(private erc1155: ERC1155) {}
