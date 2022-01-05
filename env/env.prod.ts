@@ -13,7 +13,7 @@ export default {
   },
   eth: {
     erc1155: '0x76f0F905C1E474376B20595279210251033b25aC',
-    network: 'rinkeby',
+    network: 'mainnet',
   },
   appUrl: {
     marketplace: 'https://www.filmseriesnft.com',

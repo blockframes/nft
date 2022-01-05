@@ -43,3 +43,6 @@ Thumbs.db
 *.log
 
 .firebase
+
+# secret env
+env/.env

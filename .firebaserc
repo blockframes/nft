@@ -1,15 +1,35 @@
 {
+  "projects": {
+    "c8-nft": "c8-nft",
+    "nft-dev": "nft-dev-b6c9c",
+    "default": "nft-dev-b6c9c"
+  },
   "targets": {
     "c8-nft": {
       "hosting": {
-        "marketplace": ["c8-nft"],
-        "player": ["c8-nft-player"],
-        "dashboard": ["c8-nft-dashboard"]
+        "marketplace": [
+          "c8-nft"
+        ],
+        "player": [
+          "c8-nft-player"
+        ],
+        "dashboard": [
+          "c8-nft-dashboard"
+        ]
+      }
+    },
+    "nft-dev-b6c9c": {
+      "hosting": {
+        "marketplace": [
+          "nft-dev-b6c9c"
+        ],
+        "player": [
+          "nft-dev-player"
+        ],
+        "dashboard": [
+          "nft-dev-dashboard"
+        ]
       }
     }
-  },
-  "projects": {
-    "c8-nft": "c8-nft",
-    "default": "c8-nft"
   }
 }

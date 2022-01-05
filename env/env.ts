@@ -2,14 +2,14 @@ export default {
   production: false,
   useEmulators: false,
   firebase: {
-    databaseURL: "https://c8-nft-default-rtdb.europe-west1.firebasedatabase.app",
-    apiKey: "AIzaSyC7qxBPbKybyWgEMfqDjYvM_lOmDeiAs9E",
-    authDomain: "c8-nft.firebaseapp.com",
-    projectId: "c8-nft",
-    storageBucket: "c8-nft.appspot.com",
-    messagingSenderId: "526738823122",
-    appId: "1:526738823122:web:16b115b2e8181322515a0b",
-    measurementId: "G-1F28KLDVCP"
+    apiKey: "AIzaSyBrXaQE71ptTK6BdRcn2639x-HObWRfAsM",
+    authDomain: "nft-dev-b6c9c.firebaseapp.com",
+    databaseURL: "https://nft-dev-b6c9c-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "nft-dev-b6c9c",
+    storageBucket: "nft-dev-b6c9c.appspot.com",
+    messagingSenderId: "311453738207",
+    appId: "1:311453738207:web:6abb4ba959ddf1357ef56a",
+    measurementId: "G-YHDBEKETNL",
   },
   eth: {
     erc1155: '0x76f0F905C1E474376B20595279210251033b25aC',

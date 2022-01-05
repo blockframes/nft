@@ -20,10 +20,16 @@ export const checkSignature = async (data: SignedMessage): Promise<PlayerRespons
   // CHECK PRECONDITIONS
 
   const jwplayerSecret = config().jwplayer?.secret;
+  const jwplayerLibId = config().jwplayer?.library;
 
   if (!jwplayerSecret) {
     logger.error(`JWP CONFIG NOT SET: jwplayer.secret env variable hasn't been set ! Check functions config in CLI with 'firebase functions:config:get'!`);
-    throw new https.HttpsError('internal', `Sorry something !`);
+    throw new https.HttpsError('internal', `Sorry something went wrong, please contact us! (code: fn-bad-config)`);
+  }
+
+  if (!jwplayerLibId) {
+    logger.error(`JWP CONFIG NOT SET: jwplayer.library env variable hasn't been set ! Check functions config in CLI with 'firebase functions:config:get'!`);
+    throw new https.HttpsError('internal', `Sorry something went wrong, please contact us! (code: fn-bad-config)`);
   }
 
   // ------------------------------
@@ -31,12 +37,12 @@ export const checkSignature = async (data: SignedMessage): Promise<PlayerRespons
 
   const expires = Math.floor(new Date().getTime() / 1000) + linkDuration; // now + 5 hours
 
-  const toSign = `libraries/DIS3AJzu.js:${expires}:${jwplayerSecret}`;
+  const toSign = `libraries/${jwplayerLibId}.js:${expires}:${jwplayerSecret}`;
   const md5 = createHash('md5');
 
   const playerSignature = md5.update(toSign).digest('hex');
 
-  const playerUrl = `https://cdn.jwplayer.com/libraries/DIS3AJzu.js?exp=${expires}&sig=${playerSignature}`;
+  const playerUrl = `https://cdn.jwplayer.com/libraries/${jwplayerLibId}.js?exp=${expires}&sig=${playerSignature}`;
 
 
   // ------------------------------
@@ -61,7 +67,7 @@ export const checkSignature = async (data: SignedMessage): Promise<PlayerRespons
   const metaSnap = await db.ref('titles').child(`${tokenId}`).get();
   if (!metaSnap.exists()) {
     logger.error(`METADATA NOT FOUND: ${ethAddress} is the legit owner of token ${tokenId}, but this token as no metadata in our RealTime DB !!!!`);
-    throw new https.HttpsError('internal', `You (${ethAddress}) own this token (${tokenId}), but we haven't found its data in our servers. Please contact us!`);
+    throw new https.HttpsError('internal', `You (${ethAddress}) own this token (${tokenId}), but we haven't found its data in our servers. Please contact us!  (code: db-missing-meta)`);
   }
   const meta: ERC1155_Meta = metaSnap.val();
 
