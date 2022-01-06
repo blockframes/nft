@@ -33,6 +33,11 @@ const routes: Routes = [
     loadChildren: () => import('./watch/watch.module').then(m => m.WatchModule)
   },
   {
+    path: 'mint',
+    canActivate: [EthereumWalletGuard],
+    loadChildren: () => import('./mint/mint.module').then(m => m.MintModule)
+  },
+  {
     path: '',
     loadChildren: () => import('./landing/landing.module').then(m => m.LandingModule)
   },

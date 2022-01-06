@@ -1,7 +1,7 @@
+
 import { Component } from '@angular/core';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { ERC1155 } from '@nft/metamask/+state/erc1155';
 
@@ -18,26 +18,15 @@ export class MintComponent {
     image: new FormControl('', Validators.required),
     jwPlayerId: new FormControl(''),
     description: new FormControl(''),
-    quantity: new FormControl(1),
+    quantity: new FormControl(1, Validators.min(1)),
   });
 
   constructor(private erc1155: ERC1155) {}
 
   async onSubmit() {
-    await this.erc1155.mint(this.mintForm.get('quantity')!.value, this.mintForm.value)
-  }
+    const quantityControl = this.mintForm.get('quantity');
+    if (!quantityControl) throw new Error(`Can't find a "quantity" control in the FormGroup!`);
 
-  get countries() {
-    return this.mintForm.get('metadata')!.get('countries') as FormArray;
-  }
-
-  // CHIPS LOGIC
-  add(event: MatChipInputEvent) {
-    this.countries.push(new FormControl(event.value));
-    event.input.value = '';
-  }
-
-  remove(index: number) {
-    this.countries.removeAt(index);
+    await this.erc1155.mint(quantityControl.value, this.mintForm.value);
   }
 }
