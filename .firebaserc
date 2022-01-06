@@ -9,9 +9,6 @@
       "hosting": {
         "marketplace": [
           "c8-nft"
-        ],
-        "dashboard": [
-          "c8-nft-dashboard"
         ]
       }
     },
@@ -19,9 +16,6 @@
       "hosting": {
         "marketplace": [
           "nft-dev-b6c9c"
-        ],
-        "dashboard": [
-          "nft-dev-dashboard"
         ]
       }
     }

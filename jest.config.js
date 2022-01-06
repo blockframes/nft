@@ -5,6 +5,5 @@ module.exports = {
     '<rootDir>/libs/metamask',
     '<rootDir>/libs/ui',
     '<rootDir>/libs/model',
-    '<rootDir>/apps/dashboard',
   ],
 };
