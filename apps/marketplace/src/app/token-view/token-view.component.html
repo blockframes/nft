@@ -1,0 +1,44 @@
+
+<header>
+  <a mat-icon-button routerLink="/account">
+    <mat-icon>arrow_back</mat-icon>
+  </a>
+</header>
+
+<article>
+  <ng-container *ngIf="(token$ | async) as token; else loading">
+
+    <section id="media">
+      <ng-container *ngIf="token.jwPlayerId else noVideo">
+        <div>
+          <ng-container *ngIf="(playerLoading$ | async)  === false; else playerLoading">
+            <ng-container *ngIf="(player$ | async) as player; else noPlayer">
+              <jwplayer [src]="player.playerUrl" [video]="player.videoUrl" [id]="player.jwPlayerId"></jwplayer>
+            </ng-container>
+            <ng-template #noPlayer>
+              <div id="fakeplayer">
+                <button mat-icon-button (click)="signMessage()">
+                  <mat-icon>play_arrow</mat-icon>
+                </button>
+              </div>
+            </ng-template>
+          </ng-container>
+          <ng-template #playerLoading>
+            <mat-spinner></mat-spinner>
+          </ng-template>
+        </div>
+      </ng-container>
+      <ng-template #noVideo>
+        <img [src]="token.image" />
+      </ng-template>
+    </section>
+
+    <section id="details">
+      <h2>{{token.name}}</h2>
+      <h3>By {{token.author}} on FilmSeriesNFT</h3>
+    </section>
+  </ng-container>
+  <ng-template #loading>
+    <mat-spinner></mat-spinner>
+  </ng-template>
+</article>

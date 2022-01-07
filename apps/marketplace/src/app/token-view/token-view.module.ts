@@ -7,12 +7,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-import { WatchComponent } from './watch.component';
+import { TokenViewComponent } from './token-view.component';
 import { JwplayerModule } from '@nft/ui/jwplayer/jwplayer.module';
 
 @NgModule({
   declarations: [
-    WatchComponent
+    TokenViewComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +21,7 @@ import { JwplayerModule } from '@nft/ui/jwplayer/jwplayer.module';
     MatButtonModule,
     MatIconModule,
     MatProgressSpinnerModule,
-    RouterModule.forChild([{ path: '', component: WatchComponent }]),
+    RouterModule.forChild([{ path: '', component: TokenViewComponent }]),
   ]
 })
-export class WatchModule { }
+export class TokenViewModule { }
