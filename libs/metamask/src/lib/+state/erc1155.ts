@@ -95,7 +95,6 @@ export class ERC1155 extends Contract {
    * @param quantity the number of supply
    */
   async mint(quantity: number, title: Title) {
-    return;
     const to = await this.metamask.signer?.getAddress();
     const id = await this.db.object('store/tokenCount').valueChanges().pipe(take(1)).toPromise() as string;
     const token = await this.db.object(`titles/${id}`).valueChanges().pipe(take(1)).toPromise();

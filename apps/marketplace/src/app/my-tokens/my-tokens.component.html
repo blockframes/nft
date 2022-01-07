@@ -3,7 +3,7 @@
   <ng-container *ngIf="tokens$ | async as  tokens">
     <ng-container *ngIf="tokens.length; else noTokens">
       <mat-card *ngFor="let token of tokens">
-        <a [routerLink]="['..', 'watch', token.id]" matRipple>
+        <a [routerLink]="['..', 'token', token.id]" matRipple>
           <img mat-card-image [src]="token.meta.image" width="300" height="400" />
         </a>
         <mat-card-header>

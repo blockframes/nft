@@ -28,9 +28,9 @@ const routes: Routes = [
     loadChildren: () => import('@nft/metamask/page/signin/signin.module').then(m => m.SigninModule)
   },
   {
-    path: 'watch/:tokenId',
+    path: 'token/:tokenId',
     canActivate: [EthereumWalletGuard],
-    loadChildren: () => import('./watch/watch.module').then(m => m.WatchModule)
+    loadChildren: () => import('./token-view/token-view.module').then(m => m.TokenViewModule)
   },
   {
     path: 'mint',
