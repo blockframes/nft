@@ -3,12 +3,19 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 24px;
-  height: 100%;
+  padding: 64px 0;
 }
 
 form {
   width: 60%;
+  margin: 32px 0;
+
+  hr {
+    margin-top: 32px;
+    width: 100%;
+    border: none;
+    border-top: solid 2px #e0e0e0;
+  }
 }
 
 mat-form-field {

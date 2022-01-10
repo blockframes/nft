@@ -7,6 +7,7 @@ import abi from '@nft/model/erc1155.json';
 import { ERC1155_Token } from '@nft/model/erc1155';
 import { Title } from '@nft/model/title';
 import { take } from 'rxjs/operators';
+import { TransactionReceipt } from '@ethersproject/abstract-provider';
 
 @Injectable({ providedIn: 'root' })
 export class ERC1155 extends Contract {
@@ -94,22 +95,38 @@ export class ERC1155 extends Contract {
    * Mint a token
    * @param quantity the number of supply
    */
-  async mint(quantity: number, title: Title) {
+  async mint(quantity: number, id: string) {
     const to = await this.metamask.signer?.getAddress();
-    const id = await this.db.object('store/tokenCount').valueChanges().pipe(take(1)).toPromise() as string;
-    const token = await this.db.object(`titles/${id}`).valueChanges().pipe(take(1)).toPromise();
-    if (!!token) {
-      // its possible to add quantity to an existing NFT, for now we prevent that.
-      throw new Error('TOKEN EXISTS ALREADY');
-    }
 
     try {
-      await this.db.object(`titles/${id}`).set(title);
       const tx = await this.functions.mint(to, id, quantity, []);
-      await tx.wait(1);
-      await this.db.object('store').update({ tokenCount: id + 1 });
+      return tx.wait(1) as Promise<TransactionReceipt>;
     } catch (err) {
       console.error(err);
     }
+    return;
+  }
+
+  async getLastId() {
+    const lastId = await this.db.object(`store/lastId`).valueChanges().pipe(take(1)).toPromise() as number;
+    if (lastId === undefined) throw new Error('Last ID not found in db, please check the DB!');
+
+    return lastId
+  }
+
+  async getNextId() {
+    const lastId = await this.getLastId();
+    const nextId = lastId + 1;
+
+    const nextToken = await this.db.object(`titles/${nextId}`).valueChanges().pipe(take(1)).toPromise() as Title;
+
+    if (!!nextToken) throw new Error(`Next token ID should be #${nextId}, but a token whit this ID already exist!`);
+
+    return nextId;
+  }
+
+  async minterRole() {
+    const role = await this.functions.MINTER_ROLE();
+    return role as string;
   }
 }

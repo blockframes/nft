@@ -22,16 +22,12 @@
           "source": "**",
           "destination": "/index.html"
         }
-      ],
-      "predeploy": [
-        "npm run build marketplace"
       ]
     }
   ],
   "functions": {
     "source": "dist/apps/functions",
     "predeploy": [
-      "npm run build functions",
       "npm run ops:config"
     ]
   },

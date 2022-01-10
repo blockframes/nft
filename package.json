@@ -26,7 +26,10 @@
     "workspace-generator": "nx workspace-generator",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
-    "ops:config": "npx ts-node ops/set-config.ts"
+    "ops:config": "npx ts-node ops/set-config.ts",
+    "deploy": "npm run build functions && npm run build marketplace && firebase deploy",
+    "deploy:functions": "npm run build functions && firebase deploy --only functions",
+    "deploy:prod": "npm run build functions -- --prod && npm run build marketplace -- --prod && firebase deploy"
   },
   "private": true,
   "dependencies": {

@@ -13,7 +13,7 @@ type Attribute = TitleAttribute;
 export interface Title {
   // properties visible on open-sea
   attributes?: Attribute[];
-  description: string;
+  description?: string;
   image: string;
   name: string;
   animation_url?: string;
