@@ -1,31 +1,70 @@
-<h1>Add a new item</h1>
+
+<h1>Mint a new token</h1>
 <form fxLayout="column" [formGroup]="mintForm" (ngSubmit)="onSubmit()">
+
+  <mat-form-field appearance="outline">
+    <mat-label>Quantity</mat-label>
+    <input matInput type="number" placeholder="Quantity" formControlName="quantity" required />
+  </mat-form-field>
+
+  <h2>Display Info</h2>
   <article fxLayout fxLayoutGap="16px">
     <mat-form-field appearance="outline">
       <mat-label>Name</mat-label>
-      <input matInput type="text" placeholder="Name" formControlName="name" required/>
+      <input matInput type="text" placeholder="My cool NFT" formControlName="name" required/>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
-      <mat-label>Quantity</mat-label>
-      <input matInput type="number" placeholder="Quantity" formControlName="quantity" required />
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>JW Player ID</mat-label>
-      <input matInput type="text" placeholder="Link" formControlName="jwPlayerId" required/>
+      <mat-label>Author</mat-label>
+      <input matInput type="text" placeholder="John Doe" formControlName="author" required/>
     </mat-form-field>
   </article>
-
-  <mat-form-field appearance="outline">
-    <mat-label>Image Link</mat-label>
-    <input matInput type="text" placeholder="Link" formControlName="image" required/>
-  </mat-form-field>
 
   <mat-form-field appearance="outline">
     <mat-label>Description</mat-label>
     <textarea matInput type="text" placeholder="Description" formControlName="description"></textarea>
   </mat-form-field>
 
-  <button mat-flat-button color="primary" type="submit">Submit</button>
+  <mat-form-field appearance="outline">
+    <mat-label>Collection Name</mat-label>
+    <input matInput type="text" placeholder="Blood Machine" formControlName="title" required/>
+    <mat-hint>Name of the collection this NFT will belong to. This field is case sensitive.</mat-hint>
+  </mat-form-field>
+
+  <h2>Media</h2>
+
+  <p>
+    Media should already be stored somewhere on the internet.
+    Before continuing, upload images & thumbnail video to the storage and import private video to JWPlayer.
+  </p>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Image Link</mat-label>
+    <input matInput type="text" placeholder="https://link.to/cool-image.png" formControlName="image" required/>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Thumbnail video Link</mat-label>
+    <input matInput type="text" placeholder="https://link.to/cool-video.mp4" formControlName="animation"/>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>JW Player ID</mat-label>
+    <input matInput type="text" placeholder="ID1234" formControlName="jwPlayerId"/>
+  </mat-form-field>
+
+  <ng-container *ngIf="loading$ | async; else notMinting">
+    <mat-spinner></mat-spinner>
+  </ng-container>
+  <ng-template #notMinting>
+    <button mat-flat-button color="primary" type="submit" [disabled]="mintForm.invalid">Mint on the Blockchain, then save the Metadata in the db</button>
+  </ng-template>
+  <hr />
 </form>
+<p>OR</p>
+<ng-container *ngIf="loading$ | async; else notSaving">
+  <mat-spinner></mat-spinner>
+</ng-container>
+<ng-template #notSaving>
+  <button mat-raised-button [disabled]="mintForm.invalid" (click)="saveMeta()">Only update Metadata in the db</button>
+</ng-template>
