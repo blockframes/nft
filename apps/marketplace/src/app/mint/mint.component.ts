@@ -48,11 +48,7 @@ export class MintComponent {
 
     const id = await this.erc1155.getNextId();
 
-    console.log(`Will mint nft with id ${id}`);
-
     const txReceipt = await this.erc1155.mint(value.quantity, id.toString(10));
-
-    console.log('Tx mined!', txReceipt);
 
     if (!txReceipt?.status) {
       console.warn(txReceipt);
@@ -84,11 +80,8 @@ export class MintComponent {
         author: value.author,
       };
 
-      console.log('calling backend function to save metadata');
+      await this.storeMetadata({ message, signature, title }).toPromise();
 
-      const tokenId = await this.storeMetadata({ message, signature, title }).toPromise();
-
-      console.log(`Metadata saved for token ${tokenId}`);
       this.loading$.next(false);
     } catch (error) {
       console.error(error);

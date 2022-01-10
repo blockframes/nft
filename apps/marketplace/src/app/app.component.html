@@ -1,7 +1,7 @@
 <nft-header>
 
   <!-- TODO issue#94 -->
-  <!-- <a mat-button routerLink="marketplace" class="courrier-font"> marketplace </a> -->
+  <!-- <a mat-button routerLink="marketplace/Blood Machine" class="courrier-font"> marketplace </a> -->
 
   <a mat-button routerLink="account" class="courrier-font"> my NFTs </a>
   <a mat-button (click)="connect()" class="courrier-font">{{ !!(metamaskService.account$ | async) ? 'connected': 'connect' }}</a>
