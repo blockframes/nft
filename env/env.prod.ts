@@ -15,4 +15,5 @@ export default {
     erc1155: '0x76f0F905C1E474376B20595279210251033b25aC',
     network: 'homestead',
   },
+  openSeaUrl: 'https://testnets.opensea.io/assets/our-very-own-shiny-store?embed=true',
 }

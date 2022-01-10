@@ -1,6 +1,6 @@
 <h2 mat-dialog-title>A network mismatch was detected</h2>
 <div mat-dialog-content>
-  <p>We detected that you are entering the app with your Ethereum wallet set to <strong>{{ currentNetwork }}</strong>.</p>
+  <p>We detected that you are entering the app with your Ethereum wallet set to <strong>{{ currentNetwork }}</strong> {{ currentNetwork === 'homestead' ? '(Mainnet)' : '' }}.</p>
   <p>To continue, please change the Ethereum network in your wallet to <strong>{{ requiredNetwork }}</strong> and click "Reload".</p>
 
   <button (click)="reload()" color="primary" mat-stroked-button>

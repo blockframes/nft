@@ -16,7 +16,16 @@ const routes: Routes = [
   },
   {
     path: 'marketplace',
-    loadChildren: () => import('./marketplace/marketplace.module').then(m => m.MarketplaceModule)
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./marketplace/marketplace.module').then(m => m.MarketplaceModule),
+      },
+      {
+        path: ':collection',
+        loadChildren: () => import('./marketplace/marketplace.module').then(m => m.MarketplaceModule),
+      }
+    ]
   },
   {
     path: 'faq',

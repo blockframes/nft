@@ -25,25 +25,17 @@ export const saveTokenMetadata = async (data: StoreMetadataParams) => {
     throw new https.HttpsError('failed-precondition', `Missing "signature" parameter!`);
   }
 
-  logger.log('Params OK!')
-
   // ------------------------------
   // CHECK SIGNATURE & VERIFY ROLE
 
   const ethAddress = utils.verifyMessage(message, signature);
-
-  logger.log(`Signature Verified! address: ${ethAddress}`);
 
   const provider = getDefaultProvider(env.eth.network);
   const contract = new Contract(env.eth.erc1155, abi, provider);
 
   const minterRole = await contract.MINTER_ROLE();
 
-  logger.log(`Minter Role: ${minterRole}`);
-
   const authorized = await contract.hasRole(minterRole, ethAddress);
-
-  logger.log(`Address ${ethAddress} is ${ authorized ? 'allowed' : 'NOT allowed'} to mint.`);
 
   if (!authorized) {
     throw new https.HttpsError('permission-denied', `You (${ethAddress}) are not authorized to mint!`);
@@ -72,8 +64,6 @@ export const saveTokenMetadata = async (data: StoreMetadataParams) => {
 
   await lastIdRef.set(nextId);
   await tokenRef.update(title);
-
-  logger.log(`New Token Metadata saved as #${nextId} !`);
 
   return nextId as number;
 }
