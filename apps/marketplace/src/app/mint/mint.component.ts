@@ -37,7 +37,7 @@ export class MintComponent {
   constructor(
     private erc1155: ERC1155,
     private snackBar: MatSnackBar,
-    private metmask: MetamaskService,
+    private metamask: MetamaskService,
     private functions: AngularFireFunctions,
   ) { }
 
@@ -65,7 +65,7 @@ export class MintComponent {
 
       const { value } = this.mintForm;
 
-      const signature = inputSignature ?? await this.metmask.signMessage(message);
+      const signature = inputSignature ?? await this.metamask.signMessage(message);
 
       const title: Title = {
         attributes: [{
@@ -95,7 +95,7 @@ export class MintComponent {
     try {
       this.loading$.next(true);
       const message = 'I confirm that I have the right to mint NFTs.';
-      const signature = await this.metmask.signMessage(message);
+      const signature = await this.metamask.signMessage(message);
 
       await this.mint();
       await this.saveMeta(message, signature);

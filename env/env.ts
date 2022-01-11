@@ -12,8 +12,8 @@ export default {
     measurementId: "G-YHDBEKETNL",
   },
   eth: {
-    erc1155: '0x76f0F905C1E474376B20595279210251033b25aC',
+    erc1155: '0x43be6fb1f47330453bd409630c1e8012fc9aa4e3',
     network: 'rinkeby',
   },
-  openSeaUrl: 'https://testnets.opensea.io/assets/our-very-own-shiny-store?embed=true',
+  openSeaUrl: 'https://testnets.opensea.io/assets/testnet-filmseriesnft?embed=true',
 }
