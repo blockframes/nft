@@ -12,8 +12,8 @@ export default {
     measurementId: "G-1F28KLDVCP"
   },
   eth: {
-    erc1155: '0x76f0F905C1E474376B20595279210251033b25aC',
+    erc1155: '0x0ffacfbc07c81a4a6f28f84cc7afb02e96f4f1df',
     network: 'homestead',
   },
-  openSeaUrl: 'https://testnets.opensea.io/assets/our-very-own-shiny-store?embed=true',
+  openSeaUrl: 'https://opensea.io/assets/our-very-own-shiny-store?embed=true',
 }

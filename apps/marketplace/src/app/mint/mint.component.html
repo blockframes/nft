@@ -61,10 +61,3 @@
   </ng-template>
   <hr />
 </form>
-<p>OR</p>
-<ng-container *ngIf="loading$ | async; else notSaving">
-  <mat-spinner></mat-spinner>
-</ng-container>
-<ng-template #notSaving>
-  <button mat-raised-button [disabled]="mintForm.invalid" (click)="saveMeta()">Only update Metadata in the db</button>
-</ng-template>
