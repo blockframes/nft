@@ -13,6 +13,7 @@
 mat-card {
   padding: 50px;
   max-width: 700px;
+  
   text-align: center;
   background: rgba(#0C031C, 0.8);
   color: white;
@@ -73,5 +74,22 @@ i {
   from {
     transform: translate3d(0,0,0);
     opacity: 1;
+  }
+}
+
+
+@media (min-width: 600px) and (max-width: 905px) {
+  mat-card {
+    width: 80%;
+  }
+}
+@media (max-width: 599px) {
+  mat-card {
+    width: 90%;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    line-height: 2.2rem;
   }
 }

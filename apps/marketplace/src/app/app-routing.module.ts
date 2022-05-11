@@ -47,6 +47,10 @@ const routes: Routes = [
     loadChildren: () => import('./mint/mint.module').then(m => m.MintModule)
   },
   {
+    path: 'list',
+    loadChildren: () => import('./list/list.module').then(m => m.ListModule)
+  },
+  {
     path: '',
     loadChildren: () => import('./landing/landing.module').then(m => m.LandingModule)
   },

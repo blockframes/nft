@@ -4,7 +4,30 @@
   height: 100vh;
 }
 
+main {
+  min-height: 0;
+  flex: 1;
+  overflow: auto;
+}
+
 a {
-  margin: 0 24px;
   font-weight: bold;
+}
+
+mat-toolbar {
+  align-items: center;
+  gap: 24px;
+  background: #0C031C;
+  color: #FFF;
+  border-bottom: 5px solid rgba(#0C031C, 0.95);
+  padding: 0 24px;
+  img {
+    height: 24px;
+  }
+}
+
+@media (max-width: 599px) {
+  mat-toolbar {
+    gap: 16px;  
+  }
 }

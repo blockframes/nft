@@ -1,21 +1,49 @@
-.mat-toolbar {
+:host {
   background-color: #0C031C;
   color: #FFF;
+  min-height: 64px;
+  padding: 0 24px;
 }
-
 
 .italic {
   font-style: italic;
   color: #8158A0;
-  margin: 0 24px;
 }
 
 a.courrier-font {
-  margin: 0 24px;
   font-weight: bold;
 }
 
 a.underline {
   color: #8158A0;
   text-decoration: underline;
+}
+
+
+
+@media (min-width: 905px) {
+  :host {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  p {
+    margin: 0;
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 904px) {
+  :host {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    place-items: center;
+  }
+  p {
+    font-size: 0.7rem;
+    margin: 0;
+    grid-column: span 2;
+    grid-row: 2;
+  }
 }
