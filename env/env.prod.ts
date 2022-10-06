@@ -15,5 +15,6 @@ export default {
     erc1155: '0x0ffacfbc07c81a4a6f28f84cc7afb02e96f4f1df',
     network: 'homestead',
   },
-  openSeaUrl: 'https://opensea.io/assets/filmseriesnft?embed=true',
+  openSeaUrl: 'https://opensea.io/collection/filmseriesnft?embed=true',
+  // openSeaUrl: 'https://opensea.io/assets/filmseriesnft?embed=true',
 }
