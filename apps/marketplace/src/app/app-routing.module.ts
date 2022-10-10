@@ -15,19 +15,6 @@ const routes: Routes = [
     loadChildren: () => import('./contact-us/contact-us.module').then(m => m.ContactUsModule)
   },
   {
-    path: 'marketplace',
-    children: [
-      {
-        path: '',
-        loadChildren: () => import('./marketplace/marketplace.module').then(m => m.MarketplaceModule),
-      },
-      {
-        path: ':collection',
-        loadChildren: () => import('./marketplace/marketplace.module').then(m => m.MarketplaceModule),
-      }
-    ]
-  },
-  {
     path: 'faq',
     loadChildren: () => import('./faq/faq.module').then(m => m.FAQModule)
   },
