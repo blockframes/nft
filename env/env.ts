@@ -14,6 +14,5 @@ export default {
   eth: {
     erc1155: '0x43be6fb1f47330453bd409630c1e8012fc9aa4e3',
     network: 'rinkeby',
-  },
-  openSeaUrl: 'https://testnets.opensea.io/assets/testnet-filmseriesnft?embed=true',
+  }
 }

@@ -14,6 +14,7 @@ import { NetworkModule } from '@nft/metamask/component/choose-network/choose-net
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 // Specific config for emulators
 const FIREBASE_EMUTLATORS = env.useEmulators ?
@@ -33,7 +34,8 @@ const FIREBASE_EMUTLATORS = env.useEmulators ?
     AngularFireFunctionsModule,
     AppRoutingModule,
     NetworkModule,
-    MatButtonModule
+    MatButtonModule,
+    MatToolbarModule
   ],
   providers: [...FIREBASE_EMUTLATORS],
   bootstrap: [AppComponent],
