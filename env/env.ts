@@ -12,7 +12,7 @@ export default {
     measurementId: "G-YHDBEKETNL",
   },
   eth: {
-    erc1155: '0x43be6fb1f47330453bd409630c1e8012fc9aa4e3',
-    network: 'rinkeby',
+    erc1155: '0x700550a4cdf6fb4e6d5ee0adf7d677b535709cec',
+    network: 'goerli',
   }
 }
